@@ -14,33 +14,33 @@ namespace PacManNamespace.Models
 
         public Map()
         {
-            Maze = new Tile[24, 21];
-            
+            Maze = new Tile[31, 28];
         }
 
         public Tile Collision(Direction direction, Tile tile)
         {
-            if(direction == Direction.Left)
-            {
-                double dx = tile.Position.X - tile.Speed;
-                return Maze[(int)dx, (int)tile.Position.Y];
-            }
-            if (direction == Direction.Right)
-            {
-                double dx = Math.Ceiling(tile.Position.X + tile.Speed);
-                return Maze[(int)dx, (int)tile.Position.Y];
-            }
+                if (direction == Direction.Left)
+                {
+                    double dx = Math.Ceiling(tile.Position.col - 1);
+                    return Maze[(int)tile.Position.row, (int)dx];
+                }
+                if (direction == Direction.Right)
+                {
+                    double dx = (int)tile.Position.col + 1;
+                    return Maze[(int)tile.Position.row, (int)dx];
+                }
 
-            if (direction == Direction.Up)
-            {
-                double dy = tile.Position.Y - tile.Speed;
-                return Maze[(int)tile.Position.X, (int)dy];
-            }
-            if (direction == Direction.Down)
-            {
-                double dy = Math.Ceiling(tile.Position.Y + tile.Speed);
-                return Maze[(int)tile.Position.X, (int)dy];
-            }
+                if (direction == Direction.Up)
+                {
+                    double dy = Math.Ceiling(tile.Position.row - 1);
+                    return Maze[(int)dy, (int)tile.Position.col];
+                }
+                if (direction == Direction.Down)
+                {
+                    double dy = (int)(tile.Position.row) + 1;
+                    return Maze[(int)dy, (int)tile.Position.col];
+                }
+            
             return null;
         }
 

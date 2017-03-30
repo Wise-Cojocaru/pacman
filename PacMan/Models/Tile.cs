@@ -14,6 +14,8 @@ namespace PacManNamespace.Models
     {
         public TileType Type { get; set; }
 
+        public bool isMoving { get; set; }
+        public Direction PreviousDirection { get; set; }
         public string ImageUrl { get; set; }
 
         public Position Position {get;set;}
@@ -21,8 +23,8 @@ namespace PacManNamespace.Models
         public Position AbsPosition {
             get
             {
-                AbsPosition.X = Position.X + 10;
-                AbsPosition.Y = Position.Y + 10;
+                AbsPosition.col = Position.col + 10;
+                AbsPosition.row = Position.row + 10;
                 return AbsPosition;
             }
 
@@ -38,12 +40,20 @@ namespace PacManNamespace.Models
 
         public int Value { get; set; }
 
-        public void Move(Direction direction)
+        public void Move()
         {
-            if (direction == Direction.Left) Position.X -= Speed;
-            if (direction == Direction.Right) Position.X += Speed;
-            if (direction == Direction.Up) Position.Y -= Speed;
-            if (direction == Direction.Down) Position.Y += Speed;
+            if (this.Direction == Direction.Left) Position.col -= Speed;
+            if (this.Direction == Direction.Right) Position.col += Speed;
+            if (this.Direction == Direction.Up) Position.row -= Speed;
+            if (this.Direction == Direction.Down) Position.row += Speed;
+        }
+        
+        public void UndoMove(Direction direction)
+        {
+            if (direction == Direction.Left) Position.col += Speed;
+            if (direction == Direction.Right) Position.col -= Speed;
+            if (direction == Direction.Up) Position.row += Speed;
+            if (direction == Direction.Down) Position.row -= Speed;
 
         }
         

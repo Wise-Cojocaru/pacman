@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="/Assets/Images/panel.png" />
         </StackPanel.Background>
 
-        <Canvas x:Name="Canvas" Height="480" Width ="420" Margin="222,160,222,0" >
+        <Canvas x:Name="Canvas" Height="620" Width ="560" Margin="222,140,222,0" >
             <Canvas.Background>
                 <ImageBrush ImageSource="/Assets/background.png"/>
             </Canvas.Background>

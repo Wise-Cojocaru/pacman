@@ -10,35 +10,64 @@ using System.IO;
 namespace PacManNamespace
 {
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
-
+    
     public enum Level { Easy, Medium, Hard}
-    public enum PacmanState { Moving, Stopped}
+    public enum GameState { Playing, GameOver}
     class GameController
     {
         public List<Map> Maps = new List<Map>();
 
         public Dictionary<ObjectType, Tile> Objects = new Dictionary<ObjectType, Tile>();
-
+        public GameState GameState { get; set; }
+        public Tile Pacman { get; set; }
+        public Tile Blinky { get; set; }
+        public Tile Pinky { get; set; }
+        public Tile Inky { get; set; }
+        public Tile Clyde { get; set; }
         
-
         public GameController()
         {
 
         }
 
-        public Position MovePacman(Direction direction)
+        public void MovePacman()
         {
-            
+            Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
+            switch(tempTile.Type)
+            {
+                case TileType.Blinky:
+                    
+                    break;
+                case TileType.Pinky:
+                    break;
+                case TileType.Inky:
+                    break;
+                case TileType.Clyde:
+                    break;
+                case TileType.Wall:
 
+                    Pacman.isMoving = false;
+                    break;
+                case TileType.Dot:
 
+                    Pacman.Move();
+                    break;
+                default:
+                    Pacman.Move();
+                    break;
+            }
 
-            
-            
         }
         public void Init()
         {
             Maps.Add(new Map());
             LoadMap("", Maps[0]);
+
+            Pacman = Objects[ObjectType.Pacman];
+            Blinky = Objects[ObjectType.Blinky];
+            Pinky = Objects[ObjectType.Pinky];
+            Inky = Objects[ObjectType.Inky];
+            Clyde = Objects[ObjectType.Clyde];
         }
 
         public void LoadMap(string path, Map map)
@@ -63,7 +92,7 @@ namespace PacManNamespace
                     }
                     if (col == 'E')
                     {
-                        tempTile = new Dot(i, j);
+                        tempTile = new Tile();
                         tempTile.Type = TileType.Dot;
 
                     }
@@ -90,6 +119,8 @@ namespace PacManNamespace
                         
                         tempTile = new Pacman();
                         tempTile.Type = TileType.Pacman;
+                        tempTile.Position.col = j;
+                        tempTile.Position.row = i;
                         Objects[ObjectType.Pacman] = tempTile;
                     }
 

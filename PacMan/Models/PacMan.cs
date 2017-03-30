@@ -20,9 +20,14 @@ namespace PacManNamespace.Models
             this.Type = TileType.Pacman;
             this.Speed = 0.1;
             this.Direction = Direction.Left;
-            this.Position = new Position() { X = 10, Y = 16 };
+            this.Position = new Position();
+            this.isMoving = true;
         }
 
+        public void Animate()
+        {
+
+        }
         
 
     }

@@ -13,7 +13,7 @@ namespace PacManNamespace.Models
             this.Type = TileType.Dot;
             this.Speed = 0;
             this.Direction = Direction.Left;
-            this.Position = new Position() { X = j, Y = i};
+            this.Position = new Position() { col = j, row = i};
             this.Value = 5;
         }
     }
