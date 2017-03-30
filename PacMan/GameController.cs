@@ -17,7 +17,8 @@ namespace PacManNamespace
     {
         public List<Map> Maps = new List<Map>();
 
-        public Dictionary<ObjectType, Tile> Objects = new Dictionary<ObjectType, Tile>();
+        public Dictionary<ObjectType, Tile> Characters = new Dictionary<ObjectType, Tile>();
+        public List<Tile> Dots = new List<Tile>();
         public GameState GameState { get; set; }
         public Tile Pacman { get; set; }
         public Tile Blinky { get; set; }
@@ -60,18 +61,20 @@ namespace PacManNamespace
         }
         public void Init()
         {
-            Maps.Add(new Map());
-            LoadMap("", Maps[0]);
+            
+            LoadMap("");
 
-            Pacman = Objects[ObjectType.Pacman];
-            Blinky = Objects[ObjectType.Blinky];
-            Pinky = Objects[ObjectType.Pinky];
-            Inky = Objects[ObjectType.Inky];
-            Clyde = Objects[ObjectType.Clyde];
+            Pacman = Characters[ObjectType.Pacman];
+            Blinky = Characters[ObjectType.Blinky];
+            Pinky = Characters[ObjectType.Pinky];
+            Inky = Characters[ObjectType.Inky];
+            Clyde = Characters[ObjectType.Clyde];
         }
 
-        public void LoadMap(string path, Map map)
+        public void LoadMap(string path)
         {
+            Maps.Add(new Map());
+            Map map = Maps[0];
             String input = File.ReadAllText("~/../Assets/maze.txt");
             int i = 0, j = 0;
             Tile tempTile = null;
@@ -93,46 +96,65 @@ namespace PacManNamespace
                     if (col == 'E')
                     {
                         tempTile = new Tile();
+                        tempTile.Type = TileType.Empty;
+
+                    }
+                    if (col == 'D')
+                    {
+                        tempTile = new Tile();
                         tempTile.Type = TileType.Dot;
+
+                    }
+                    if (col == 'V')
+                    {
+                        tempTile = new Tile();
+                        tempTile.Type = TileType.MakeVulnerable;
 
                     }
                     if (col == 'B')
                     {
                         tempTile = new Blinky();
                         tempTile.Type = TileType.Blinky;
-                        Objects[ObjectType.Blinky] = tempTile;
+
+                        Characters[ObjectType.Blinky] = tempTile;
                     }
                     if (col == 'I')
                     {
                         tempTile = new Inky();
                         tempTile.Type = TileType.Inky;
-                        Objects[ObjectType.Inky] = tempTile;
+
+                        Characters[ObjectType.Inky] = tempTile;
                     }
                     if (col == 'P')
                     {
                         tempTile = new Pinky();
                         tempTile.Type = TileType.Pinky;
-                        Objects[ObjectType.Pinky] = tempTile;
+
+                        Characters[ObjectType.Pinky] = tempTile;
                     }
                     if (col == 'M')
                     {
-                        
                         tempTile = new Pacman();
                         tempTile.Type = TileType.Pacman;
-                        tempTile.Position.col = j;
-                        tempTile.Position.row = i;
-                        Objects[ObjectType.Pacman] = tempTile;
+
+                        Characters[ObjectType.Pacman] = tempTile;
                     }
 
                     if (col == 'C')
                     {
                         tempTile = new Clyde();
                         tempTile.Type = TileType.Clyde;
-                        tempTile.ImageUrl = "ms-appx:///Assets/big-yummy.bmp";
-                        Objects[ObjectType.Clyde] = tempTile;
+
+                        Characters[ObjectType.Clyde] = tempTile;
                     }
+
                     if (tempTile != null)
+                    {
+                        tempTile.Position.col = j;
+                        tempTile.Position.row = i;
                         map.Maze[i, j] = tempTile;
+                    }
+
                     j++;
                 }
                 i++;

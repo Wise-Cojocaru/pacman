@@ -30,7 +30,9 @@ namespace PacManNamespace
 
         DispatcherTimer dispatcherTimer;
 
-        public Dictionary<ObjectType, UIElement> UIObjects = new Dictionary<ObjectType, UIElement>();
+        public Dictionary<ObjectType, UIElement> UICharacters = new Dictionary<ObjectType, UIElement>();
+
+        public List<UIElement> UIDots = new List<UIElement>();
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
@@ -55,8 +57,8 @@ namespace PacManNamespace
             Pacman.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/png/pacman_third.png"));
 
             this.Canvas.Children.Add(Pacman);
-            PlaceOnCanvas(controller.Objects[ObjectType.Pacman].Position, Pacman);
-            UIObjects[ObjectType.Pacman] = Pacman;
+            PlaceOnCanvas(controller.Characters[ObjectType.Pacman].Position, Pacman);
+            UICharacters[ObjectType.Pacman] = Pacman;
 
 
             dispatcherTimer = new DispatcherTimer();
@@ -73,7 +75,7 @@ namespace PacManNamespace
             }
 
             controller.MovePacman();
-            PlaceOnCanvas(controller.Pacman.Position, UIObjects[ObjectType.Pacman]);
+            PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }
 
         public void PlaceOnCanvas(Position P, UIElement element)

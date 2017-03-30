@@ -13,5 +13,15 @@ namespace PacManNamespace.Models.Ghosts
         {
 
         }
+
+        public void Follow()
+        {
+
+        }
+
+        public void ShortestPathTo()
+        {
+
+        }
     }
 }

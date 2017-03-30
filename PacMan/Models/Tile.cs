@@ -8,7 +8,7 @@ namespace PacManNamespace.Models
 {
     enum Direction { Left, Up, Right, Down, None}
 
-    enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman }
+    enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
 
     class Tile
     {
@@ -18,7 +18,7 @@ namespace PacManNamespace.Models
         public Direction PreviousDirection { get; set; }
         public string ImageUrl { get; set; }
 
-        public Position Position {get;set;}
+        public Position Position = new Position();
 
         public Position AbsPosition {
             get
