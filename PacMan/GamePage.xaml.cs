@@ -87,7 +87,7 @@ namespace PacManNamespace
         {
 
             Direction dir = Direction.None;
-            if(args.VirtualKey == Windows.System.VirtualKey.Enter) dispatcherTimer.Start();
+            if (args.VirtualKey == Windows.System.VirtualKey.Enter) dispatcherTimer.Start();
             if (args.VirtualKey == Windows.System.VirtualKey.Up) dir = Direction.Up;
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;
