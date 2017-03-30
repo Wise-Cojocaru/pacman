@@ -11,6 +11,7 @@ namespace PacManNamespace
 {
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
 
+    public enum Level { Easy, Medium, Hard}
     public enum PacmanState { Moving, Stopped}
     class GameController
     {
@@ -23,27 +24,19 @@ namespace PacManNamespace
         public GameController()
         {
 
-           
-           
-
         }
 
         public Position MovePacman(Direction direction)
         {
-            ((Pacman)Objects[ObjectType.Pacman]).Move(direction);
-            Position p = ((Pacman)Objects[ObjectType.Pacman]).Position;
+            
 
-            if(Maps[0].Maze[(int)p.X, (int)p.Y].Type == TileType.Wall)
-            {
 
-            }
-                
-            return null;
-            //((Pacman)controller.Objects[ObjectType.Pacman]).Move(Direction.Left);
+
+            
+            
         }
         public void Init()
         {
-           
             Maps.Add(new Map());
             LoadMap("", Maps[0]);
         }
@@ -54,7 +47,7 @@ namespace PacManNamespace
             int i = 0, j = 0;
             Tile tempTile = null;
 
-           // var dialog = new Windows.UI.Popups.MessageDialog(col.ToString());
+            // var dialog = new Windows.UI.Popups.MessageDialog(col.ToString());
             //await dialog.ShowAsync();
             foreach (var row in input.Split('\n'))
             {

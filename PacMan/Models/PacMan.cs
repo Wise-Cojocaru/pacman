@@ -18,7 +18,7 @@ namespace PacManNamespace.Models
         public Pacman()
         {
             this.Type = TileType.Pacman;
-            this.Speed = 1;
+            this.Speed = 0.1;
             this.Direction = Direction.Left;
             this.Position = new Position() { X = 10, Y = 16 };
         }

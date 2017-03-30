@@ -8,6 +8,7 @@ namespace PacManNamespace.Models.Ghosts
 {
     class Ghost: Tile
     {
+        public bool Vulnerable { get; set; }
         public Ghost()
         {
 

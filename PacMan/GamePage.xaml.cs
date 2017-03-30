@@ -65,10 +65,10 @@ namespace PacManNamespace
 
             if (dir != Direction.None)
             {
-                Position pacPos = controller.MovePacman(dir);
-                PlaceOnCanvas(pacPos, UIObjects[ObjectType.Pacman]);
-                if(pacPos.X != -1 && pacPos.Y != -1)
-                    CoreWindow_KeyDown(sender, args);
+                controller.MovePacman(dir);
+                PlaceOnCanvas(controller.Objects[ObjectType.Pacman].Position, UIObjects[ObjectType.Pacman]);
+                 
+                
             }
         }
         

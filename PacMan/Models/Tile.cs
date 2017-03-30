@@ -18,8 +18,21 @@ namespace PacManNamespace.Models
 
         public Position Position {get;set;}
 
-        public Position AbsPosition { get; set; }
-        public int Speed { get; set; }
+        public Position AbsPosition {
+            get
+            {
+                AbsPosition.X = Position.X + 10;
+                AbsPosition.Y = Position.Y + 10;
+                return AbsPosition;
+            }
+
+
+            set
+            {
+                AbsPosition = value;
+            }
+        }
+        public double Speed { get; set; }
 
         public Direction Direction { get; set; }
 
@@ -27,22 +40,12 @@ namespace PacManNamespace.Models
 
         public void Move(Direction direction)
         {
-            if (direction == Direction.Left) Position.X -= 0.1 * Speed;
-            if (direction == Direction.Right) Position.X += 0.1 * Speed;
-            if (direction == Direction.Up) Position.Y -= 0.1 * Speed;
-            if (direction == Direction.Down) Position.Y += 0.1 * Speed;
-
-
+            if (direction == Direction.Left) Position.X -= Speed;
+            if (direction == Direction.Right) Position.X += Speed;
+            if (direction == Direction.Up) Position.Y -= Speed;
+            if (direction == Direction.Down) Position.Y += Speed;
 
         }
-
-        public void UndoMove(Direction direction)
-        {
-            if (direction == Direction.Left) Position.X += 0.1 * Speed;
-            if (direction == Direction.Right) Position.X -= 0.1 * Speed;
-            if (direction == Direction.Up) Position.Y += 0.1 * Speed;
-            if (direction == Direction.Down) Position.Y -= 0.1 * Speed;
-
-        }
+        
     }
 }
