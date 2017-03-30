@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacMan.Models
+namespace PacManNamespace.Models.Ghosts
 {
-    class Ghost
+    class Ghost: Tile
     {
+        public Ghost()
+        {
+
+        }
     }
 }

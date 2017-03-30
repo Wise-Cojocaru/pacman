@@ -89,9 +89,15 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\background.png" />
-    <Content Include="Assets\Images\KOMIKAX_.ttf" />
-    <None Include="Assets\Images\komika_poster.zip" />
+    <Content Include="Assets\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\KOMIKAX_.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\komika_poster.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -106,10 +112,15 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Dot.cs" />
-    <Compile Include="Models\Ghost.cs" />
+    <Compile Include="Models\Ghosts\Blinky.cs" />
+    <Compile Include="Models\Ghosts\Clyde.cs" />
+    <Compile Include="Models\Ghosts\Ghost.cs" />
+    <Compile Include="Models\Ghosts\Inky.cs" />
+    <Compile Include="Models\Ghosts\Pinky.cs" />
     <Compile Include="Models\Map.cs" />
-    <Compile Include="Models\PacMan.cs" />
+    <Compile Include="Models\Pacman.cs" />
     <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,34 +130,93 @@
     <None Include="PacMan_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\background.bmp" />
-    <Content Include="Assets\Images\background2.bmp" />
-    <Content Include="Assets\Images\big-yummy.bmp" />
-    <Content Include="Assets\Images\cyanghost.bmp" />
-    <Content Include="Assets\Images\pacman-D.bmp" />
-    <Content Include="Assets\Images\pacman-L.bmp" />
-    <Content Include="Assets\Images\pacman-R.bmp" />
-    <Content Include="Assets\Images\pacman-U.bmp" />
-    <Content Include="Assets\Images\panel.png" />
-    <Content Include="Assets\Images\pinkghost.bmp" />
-    <Content Include="Assets\Images\png\background.png" />
-    <Content Include="Assets\Images\png\background2_guide.png" />
-    <Content Include="Assets\Images\png\background_guide.png" />
-    <Content Include="Assets\Images\png\cyanghost.png" />
-    <Content Include="Assets\Images\png\pacman-D.png" />
-    <Content Include="Assets\Images\png\pacman-L.png" />
-    <Content Include="Assets\Images\png\pacman-R.png" />
-    <Content Include="Assets\Images\png\pacman-U.png" />
-    <Content Include="Assets\Images\png\pinkghost.png" />
-    <Content Include="Assets\Images\png\redghost.png" />
-    <Content Include="Assets\Images\png\template.png" />
-    <Content Include="Assets\Images\png\vulnghost.png" />
-    <Content Include="Assets\Images\png\yellowghost.png" />
-    <Content Include="Assets\Images\redghost.bmp" />
-    <Content Include="Assets\Images\small-yummy.bmp" />
-    <Content Include="Assets\Images\vulnghost.bmp" />
-    <Content Include="Assets\Images\wallpaper-pacman-screen-border-1024x768.jpg" />
-    <Content Include="Assets\Images\yellowghost.bmp" />
+    <Content Include="Assets\Images\background.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\background2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\big-yummy.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\cyanghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\pacman-D.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\pacman-L.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\pacman-R.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\pacman-U.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\panel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\pinkghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\background2_guide.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\background_guide.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\cyanghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\pacman-D.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\pacman-L.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\pacman-R.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\pacman-U.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\pinkghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\redghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\template.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\vulnghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\png\yellowghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\redghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\small-yummy.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\vulnghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\wallpaper-pacman-screen-border-1024x768.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\yellowghost.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\maze.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\sounds\mp3\Chomping.mp3" />
     <Content Include="Assets\sounds\mp3\Eating Ghosts.mp3" />
     <Content Include="Assets\sounds\mp3\Pac man dies.mp3" />
@@ -156,13 +226,27 @@
     <Content Include="Assets\sounds\wav\intro.wav" />
     <Content Include="Assets\sounds\wav\pacmandied.wav" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SplashScreen.scale-200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square150x150Logo.scale-200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square44x44Logo.scale-200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\StoreLogo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Wide310x150Logo.scale-200.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacManNamespace.Models
+namespace PacManNamespace.Models.Ghosts
 {
-    public class Position
+    class Pinky : Ghost
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public Pinky()
+        {
+
+        }
     }
 }
