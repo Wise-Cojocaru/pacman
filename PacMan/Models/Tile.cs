@@ -12,10 +12,8 @@ namespace PacManNamespace.Models
     enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
 
     
-    class Tile
+    class Tile : Serialization
     {
-
-     
         public Dictionary<Direction, string> Images;
         public TileType Type { get; set; }
 
@@ -64,9 +62,6 @@ namespace PacManNamespace.Models
         public void Move()
         {
 
-            
-            
-
             if (this.Direction == Direction.Left)
             {
                 Position.row = Math.Round(Position.row);
@@ -105,6 +100,16 @@ namespace PacManNamespace.Models
         {
             
 
+        }
+
+        public virtual string Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Deserialize()
+        {
+            throw new NotImplementedException();
         }
     }
 }

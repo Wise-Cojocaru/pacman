@@ -43,8 +43,7 @@ namespace PacManNamespace
             this.InitializeComponent();
             controller.Init();
             this.Init();
-
-            
+ 
         }
 
         
@@ -56,7 +55,7 @@ namespace PacManNamespace
             Pacman.Source = new BitmapImage(new Uri(controller.Pacman.CurrentImageUrl));
 
             this.Canvas.Children.Add(Pacman);
-            PlaceOnCanvas(controller.Characters[ObjectType.Pacman].Position, Pacman);
+            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
 
@@ -97,9 +96,9 @@ namespace PacManNamespace
             if (dir != Direction.None)
             {
                 
-                    controller.Pacman.PreviousDirection = controller.Pacman.Direction;
-                    controller.Pacman.Direction = dir;
-               
+                controller.Pacman.PreviousDirection = controller.Pacman.Direction;
+                controller.Pacman.Direction = dir;
+
             }
         }
 
