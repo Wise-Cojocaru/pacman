@@ -19,28 +19,29 @@ namespace PacManNamespace.Models
 
         public Tile Collision(Direction direction, Tile tile)
         {
-                if (direction == Direction.Left)
-                {
-                    double dx = Math.Ceiling(tile.Position.col - 1);
-                    return Maze[(int)tile.Position.row, (int)dx];
-                }
-                if (direction == Direction.Right)
-                {
-                    double dx = (int)tile.Position.col + 1;
-                    return Maze[(int)tile.Position.row, (int)dx];
-                }
+            int x = (int)(tile.Position.col);
+            int y = (int)(tile.Position.row);
+            if (direction == Direction.Left)
+            {
+                x = (int)(tile.Position.col - 0.2);
+                return Maze[y, x];
+            }
+            if (direction == Direction.Right)
+            {
+                x = (int)(tile.Position.col + 1 + 0.2);
+                return Maze[y, x];
+            }
+            if (direction == Direction.Down)
+            {
+                y = (int)(tile.Position.row + 1 + 0.2);
+                return Maze[y, x ];
+            }
+            if (direction == Direction.Up)
+            {
+                y = (int)(tile.Position.row - 0.2);
+                return Maze[y, x];
+            }
 
-                if (direction == Direction.Up)
-                {
-                    double dy = Math.Ceiling(tile.Position.row - 1);
-                    return Maze[(int)dy, (int)tile.Position.col];
-                }
-                if (direction == Direction.Down)
-                {
-                    double dy = (int)(tile.Position.row) + 1;
-                    return Maze[(int)dy, (int)tile.Position.col];
-                }
-            
             return null;
         }
 

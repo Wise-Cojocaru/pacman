@@ -30,7 +30,7 @@ namespace PacManNamespace
 
         DispatcherTimer dispatcherTimer;
 
-        public Dictionary<ObjectType, UIElement> UICharacters = new Dictionary<ObjectType, UIElement>();
+        public Dictionary<ObjectType, Image> UICharacters = new Dictionary<ObjectType, Image>();
 
         public List<UIElement> UIDots = new List<UIElement>();
 
@@ -48,13 +48,12 @@ namespace PacManNamespace
         }
 
         
-
         public void Init()
         {
             Image Pacman = new Image();
             Pacman.Height = 20;
             Pacman.Width = 20;
-            Pacman.Source = new BitmapImage(new Uri("ms-appx:///Assets/Images/png/pacman_third.png"));
+            Pacman.Source = new BitmapImage(new Uri(controller.Pacman.CurrentImageUrl));
 
             this.Canvas.Children.Add(Pacman);
             PlaceOnCanvas(controller.Characters[ObjectType.Pacman].Position, Pacman);
@@ -75,6 +74,8 @@ namespace PacManNamespace
             }
 
             controller.MovePacman();
+            
+            UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(controller.Pacman.CurrentImageUrl));
             PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }
 
@@ -95,7 +96,10 @@ namespace PacManNamespace
 
             if (dir != Direction.None)
             {
-                controller.Pacman.Direction = dir;
+                
+                    controller.Pacman.PreviousDirection = controller.Pacman.Direction;
+                    controller.Pacman.Direction = dir;
+               
             }
         }
 

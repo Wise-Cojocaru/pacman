@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace PacManNamespace.Models
 {
@@ -10,13 +11,20 @@ namespace PacManNamespace.Models
 
     enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
 
+    
     class Tile
     {
+
+     
+        public Dictionary<Direction, string> Images;
         public TileType Type { get; set; }
 
         public bool isMoving { get; set; }
-        public Direction PreviousDirection { get; set; }
-        public string ImageUrl { get; set; }
+
+        public Direction PreviousDirection = Direction.Left;
+        public string CurrentImageUrl { get; set; }
+
+        public DispatcherTimer MoveOneTile;
 
         public Position Position = new Position();
 
@@ -40,12 +48,49 @@ namespace PacManNamespace.Models
 
         public int Value { get; set; }
 
+        public int counter { get; set; }
+        public Tile()
+        {
+            MoveOneTile = new DispatcherTimer();
+            MoveOneTile.Tick += dispatcherTimer_Tick;
+            MoveOneTile.Interval = new TimeSpan(0, 0, 0, 0, 5);
+        }
+
+        private void dispatcherTimer_Tick(object sender, object e)
+        {
+            Move();
+        }
+
         public void Move()
         {
-            if (this.Direction == Direction.Left) Position.col -= Speed;
-            if (this.Direction == Direction.Right) Position.col += Speed;
-            if (this.Direction == Direction.Up) Position.row -= Speed;
-            if (this.Direction == Direction.Down) Position.row += Speed;
+
+            
+            
+
+            if (this.Direction == Direction.Left)
+            {
+                Position.row = Math.Round(Position.row);
+                Position.col -= Speed;
+            }
+
+            if (this.Direction == Direction.Right)
+            {
+                Position.row = Math.Round(Position.row);
+                Position.col += Speed;
+            }
+
+            if (this.Direction == Direction.Up)
+            {
+                Position.col = Math.Round(Position.col);
+                Position.row -= Speed;
+            }
+            if (this.Direction == Direction.Down)
+            {
+                Position.col = Math.Round(Position.col);
+                Position.row += Speed;
+            }
+
+           
         }
         
         public void UndoMove(Direction direction)
@@ -56,6 +101,10 @@ namespace PacManNamespace.Models
             if (direction == Direction.Down) Position.row -= Speed;
 
         }
-        
+        public virtual void Animate()
+        {
+            
+
+        }
     }
 }

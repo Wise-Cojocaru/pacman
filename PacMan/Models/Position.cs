@@ -10,5 +10,8 @@ namespace PacManNamespace.Models
     {
         public double col { get; set; }
         public double row { get; set; }
+
+        public int colInt { get; set; }
+        public int colRow { get; set; }
     }
 }

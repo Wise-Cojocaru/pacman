@@ -18,6 +18,7 @@ namespace PacManNamespace
         public List<Map> Maps = new List<Map>();
 
         public Dictionary<ObjectType, Tile> Characters = new Dictionary<ObjectType, Tile>();
+
         public List<Tile> Dots = new List<Tile>();
         public GameState GameState { get; set; }
         public Tile Pacman { get; set; }
@@ -47,13 +48,16 @@ namespace PacManNamespace
                     break;
                 case TileType.Wall:
 
+                    Pacman.Position.row = Math.Round(Pacman.Position.row);
+                    Pacman.Position.col = Math.Round(Pacman.Position.col);
                     Pacman.isMoving = false;
                     break;
                 case TileType.Dot:
-
-                    Pacman.Move();
+                        Pacman.Animate();
+                        Pacman.Move();
                     break;
                 default:
+                    Pacman.Animate();
                     Pacman.Move();
                     break;
             }
