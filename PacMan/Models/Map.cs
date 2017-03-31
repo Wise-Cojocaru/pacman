@@ -202,13 +202,6 @@ namespace PacManNamespace.Models
                 str += "\n";
             }
 
-            foreach(var dot in Dots)
-            {
-                str += dot.Serialize();
-                str += "\n";
-            }
-
-
             return str;
         }
 
