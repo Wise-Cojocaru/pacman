@@ -23,7 +23,7 @@ namespace PacManNamespace.Models
                 { Direction.Right,  "ms-appx:///Assets/Images/png/pacman-R.png" },
                 { Direction.Up,  "ms-appx:///Assets/Images/png/pacman-U.png" },
                 { Direction.Down,  "ms-appx:///Assets/Images/png/pacman-D.png" },
-                {Direction.None, "ms-appx:///Assets/Images/png/pacman-N.png" }
+                { Direction.None, "ms-appx:///Assets/Images/png/pacman-N.png" }
             };
             this.CurrentImageUrl = Images[Direction.Left];
         }

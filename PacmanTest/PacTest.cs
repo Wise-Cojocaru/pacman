@@ -8,6 +8,7 @@ namespace PacmanTest
     public class PacTest
     {
 
+        //Tests Pacman Position changes and image source changes
         [TestMethod]
         public void Move_AllDirections_Success()
         {
@@ -19,6 +20,7 @@ namespace PacmanTest
             p.Move();
             Assert.IsTrue(p.Position.row == Math.Round(oldPos.row));
             Assert.IsTrue(p.Position.col == oldPos.col + p.Speed);
+            Assert.IsTrue(p.CurrentImageUrl == "ms-appx:///Assets/Images/png/pacman-R.png");
 
             //Down
             p.Direction = Direction.Down;
@@ -26,6 +28,7 @@ namespace PacmanTest
             p.Move();
             Assert.IsTrue(p.Position.col == Math.Round(oldPos.col));
             Assert.IsTrue(p.Position.row == oldPos.row - p.Speed);
+            Assert.IsTrue(p.CurrentImageUrl == "ms-appx:///Assets/Images/png/pacman-D.png");
 
             //Left
             p.Direction = Direction.Left;
@@ -33,6 +36,7 @@ namespace PacmanTest
             p.Move();
             Assert.IsTrue(p.Position.row == Math.Round(oldPos.row));
             Assert.IsTrue(p.Position.col == oldPos.col - p.Speed);
+            Assert.IsTrue(p.CurrentImageUrl == "ms-appx:///Assets/Images/png/pacman-L.png");
 
             //Up
             p.Direction = Direction.Up;
@@ -40,6 +44,12 @@ namespace PacmanTest
             p.Move();
             Assert.IsTrue(p.Position.col == Math.Round(oldPos.col));
             Assert.IsTrue(p.Position.row == oldPos.row + p.Speed);
+            Assert.IsTrue(p.CurrentImageUrl == "ms-appx:///Assets/Images/png/pacman-U.png");
+
+            //None
+            p.Direction = Direction.None;
+            Assert.IsTrue(p.CurrentImageUrl == "ms-appx:///Assets/Images/png/pacman-N.png");
         }
+
     }
 }

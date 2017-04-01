@@ -19,7 +19,7 @@ namespace PacManNamespace
     
     public enum Level { First, Second, Third}
     public enum GameState { Playing, GameOver}
-    class GameController
+    public class GameController
     {
         public List<Map> Maps = new List<Map>();
 

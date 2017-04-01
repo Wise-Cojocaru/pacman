@@ -9,7 +9,7 @@ namespace PacmanTest
     public class MapTest
     {
 
-        //Tests that all characters in map file assign correct TileTypes to each Tile in map.Maze.
+        //Tests that all characters in map file assign correct TileTypes to each Tile in mag.Maze.
         [TestMethod]
         public void LoadMap_AllTileTypes_Success()
         {
