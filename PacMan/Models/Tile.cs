@@ -7,12 +7,12 @@ using Windows.UI.Xaml;
 
 namespace PacManNamespace.Models
 {
-    enum Direction { Left, Up, Right, Down, None}
+    public enum Direction { Left, Up, Right, Down, None}
 
-    enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
+    public enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
 
     
-    class Tile : Serialization
+    public class Tile : Serialization
     {
         public Dictionary<Direction, string> Images;
         public TileType Type { get; set; }

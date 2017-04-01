@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacManNamespace.Models.Ghosts
 {
-    class Inky: Ghost
+    public class Inky : Ghost
     {
         public Inky()
         {

@@ -9,7 +9,7 @@ using PacManNamespace.Models.Ghosts;
 namespace PacManNamespace.Models
 {
     
-    class Map : Serialization
+    public class Map : Serialization
     {
         public Tile[,] Maze { get; set; }
 

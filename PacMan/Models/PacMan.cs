@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacManNamespace.Models
 {
-    class Pacman : Tile
+    public class Pacman : Tile
     {
         
         public Pacman()

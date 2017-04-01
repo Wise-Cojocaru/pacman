@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PacManNamespace.Models.Ghosts
+namespace PacMan
 {
-    public class Blinky : Ghost
+    class PacmanTest
     {
-        public Blinky()
-        {
-            
-        }
     }
 }

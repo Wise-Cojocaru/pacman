@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacMan", "PacMan\PacMan.csproj", "{6CE673EC-4DA0-47C6-9A8D-9CB96555CCD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PacmanTest", "PacmanTest\PacmanTest.csproj", "{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,26 @@ Global
 		{6CE673EC-4DA0-47C6-9A8D-9CB96555CCD3}.Release|x86.ActiveCfg = Release|x86
 		{6CE673EC-4DA0-47C6-9A8D-9CB96555CCD3}.Release|x86.Build.0 = Release|x86
 		{6CE673EC-4DA0-47C6-9A8D-9CB96555CCD3}.Release|x86.Deploy.0 = Release|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|ARM.Build.0 = Debug|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|ARM.Deploy.0 = Debug|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x64.ActiveCfg = Debug|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x64.Build.0 = Debug|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x64.Deploy.0 = Debug|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x86.ActiveCfg = Debug|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x86.Build.0 = Debug|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Debug|x86.Deploy.0 = Debug|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|Any CPU.ActiveCfg = Release|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|ARM.ActiveCfg = Release|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|ARM.Build.0 = Release|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|ARM.Deploy.0 = Release|ARM
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x64.ActiveCfg = Release|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x64.Build.0 = Release|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x64.Deploy.0 = Release|x64
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x86.ActiveCfg = Release|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x86.Build.0 = Release|x86
+		{A0C062FA-DF20-42AA-9B42-8BD23658C0AB}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacManNamespace.Models.Ghosts
 {
-    class Ghost: Tile
+    public class Ghost : Tile
     {
         public bool Vulnerable { get; set; }
         public Ghost()

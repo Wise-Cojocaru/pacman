@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PacManNamespace.Models.Ghosts
 {
-    class Clyde : Ghost
+    public class Clyde : Ghost
     {
         public Clyde()
         {
