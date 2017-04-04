@@ -52,7 +52,7 @@ namespace PacManNamespace
             Image Pacman = new Image();
             Pacman.Height = 20;
             Pacman.Width = 20;
-            Pacman.Source = new BitmapImage(new Uri(pathToPng+controller.Pacman.CurrentImageUrl));
+            Pacman.Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
 
             this.Canvas.Children.Add(Pacman);
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
