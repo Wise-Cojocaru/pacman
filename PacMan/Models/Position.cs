@@ -12,6 +12,6 @@ namespace PacManNamespace.Models
         public double row { get; set; }
 
         public int colInt { get; set; }
-        public int colRow { get; set; }
+        public int rowInt { get; set; }
     }
 }

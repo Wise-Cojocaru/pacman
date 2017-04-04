@@ -83,6 +83,7 @@ namespace PacManNamespace.Models
                     {
                         tempTile = new Tile();
                         tempTile.Type = TileType.Dot;
+                        Dots.Add(tempTile);
 
                     }
                     if (col == 'V')
