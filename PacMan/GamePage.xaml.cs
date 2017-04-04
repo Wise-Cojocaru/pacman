@@ -36,7 +36,7 @@ namespace PacManNamespace
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
-        
+        public const String pathToPng= "ms-appx:///Assets/Images/png/";
         public GamePage()
         {
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
@@ -52,12 +52,26 @@ namespace PacManNamespace
             Image Pacman = new Image();
             Pacman.Height = 20;
             Pacman.Width = 20;
-            Pacman.Source = new BitmapImage(new Uri(controller.Pacman.CurrentImageUrl));
+            Pacman.Source = new BitmapImage(new Uri(pathToPng+controller.Pacman.CurrentImageUrl));
 
             this.Canvas.Children.Add(Pacman);
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
+            //=========================================
+
+            Image Pinky = new Image();
+            Pinky.Height = 20;
+            Pinky.Width = 20;
+            Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
+
+            this.Canvas.Children.Add(Pinky);
+            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
+            UICharacters[ObjectType.Pinky] = Pinky;
+
+            //=========================================
+
+            
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -74,7 +88,7 @@ namespace PacManNamespace
 
             controller.MovePacman();
             
-            UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(controller.Pacman.CurrentImageUrl));
+            UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
             PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }
 

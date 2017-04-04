@@ -57,12 +57,19 @@ namespace PacManNamespace
                     Pacman.Position.col = Math.Round(Pacman.Position.col);
                     break;
                 case TileType.Dot:
+                    ((Pacman)Pacman).Score += tempTile.Value;
+                    tempTile = new Tile();
+                    tempTile.Type = TileType.Empty;
+
+
                     Pacman.Animate();
                     Pacman.Move();
+                    Maps[0].MoveTile(Pacman);
                     break;
                 default:
                     Pacman.Animate();
                     Pacman.Move();
+                    Maps[0].MoveTile(Pacman);
                     break;
             }
 

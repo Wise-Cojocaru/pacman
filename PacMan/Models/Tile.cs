@@ -22,9 +22,11 @@ namespace PacManNamespace.Models
         public Direction PreviousDirection = Direction.Left;
         public string CurrentImageUrl { get; set; }
 
-        public DispatcherTimer MoveOneTile;
+        
 
         public Position Position = new Position();
+
+        public Position PrevPosition = new Position();
 
         public Position AbsPosition {
             get
@@ -49,15 +51,10 @@ namespace PacManNamespace.Models
         public int counter { get; set; }
         public Tile()
         {
-            MoveOneTile = new DispatcherTimer();
-            MoveOneTile.Tick += dispatcherTimer_Tick;
-            MoveOneTile.Interval = new TimeSpan(0, 0, 0, 0, 5);
+            
         }
 
-        private void dispatcherTimer_Tick(object sender, object e)
-        {
-            Move();
-        }
+       
 
         public void Move()
         {

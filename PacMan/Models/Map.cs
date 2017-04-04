@@ -49,9 +49,18 @@ namespace PacManNamespace.Models
             return null;
         }
 
-        public void MoveTile(Tile t, Direction dir)
+        public void MoveTile(Tile t)
         {
+            int i = (int)Math.Round(t.Position.row);
+            int j = (int)Math.Round(t.Position.col);
 
+
+            Tile temp = new Tile();
+            temp.Type = TileType.Empty;
+
+            Maze[(int)t.PrevPosition.row, (int)t.PrevPosition.col] = temp;
+            Maze[i, j] = t;
+            
         }
         public void LoadMap(string path)
         {
@@ -93,45 +102,39 @@ namespace PacManNamespace.Models
                     }
                     if (col == 'B')
                     {
-                        tempTile = new Blinky();
-                        tempTile.Type = TileType.Blinky;
-
+                        tempTile = new Ghost(TileType.Blinky);
                         Characters[ObjectType.Blinky] = tempTile;
                     }
                     if (col == 'I')
                     {
-                        tempTile = new Inky();
-                        tempTile.Type = TileType.Inky;
-
+                        tempTile = new Ghost(TileType.Inky);
                         Characters[ObjectType.Inky] = tempTile;
                     }
                     if (col == 'P')
                     {
-                        tempTile = new Pinky();
-                        tempTile.Type = TileType.Pinky;
-
+                        tempTile = new Ghost(TileType.Pinky);
                         Characters[ObjectType.Pinky] = tempTile;
+                    }
+                    if (col == 'C')
+                    {
+                        tempTile = new Ghost(TileType.Clyde);
+                        Characters[ObjectType.Clyde] = tempTile;
                     }
                     if (col == 'M')
                     {
                         tempTile = new Pacman();
-                        tempTile.Type = TileType.Pacman;
-
                         Characters[ObjectType.Pacman] = tempTile;
                     }
 
-                    if (col == 'C')
-                    {
-                        tempTile = new Clyde();
-                        tempTile.Type = TileType.Clyde;
-
-                        Characters[ObjectType.Clyde] = tempTile;
-                    }
+                    
 
                     if (tempTile != null)
                     {
                         tempTile.Position.col = j;
                         tempTile.Position.row = i;
+
+                        tempTile.PrevPosition.col = j;
+                        tempTile.PrevPosition.row = i;
                         this.Maze[i, j] = tempTile;
                     }
 
