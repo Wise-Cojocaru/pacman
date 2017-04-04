@@ -9,7 +9,7 @@ using System.IO;
 
 namespace PacManNamespace
 {
-
+    //
     public interface Serialization
     {
         string Serialize();
