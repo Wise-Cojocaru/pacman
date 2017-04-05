@@ -58,20 +58,15 @@ namespace PacManNamespace
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
-            //=========================================
 
-            Image Pinky = new Image();
-            Pinky.Height = 20;
-            Pinky.Width = 20;
-            Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
+            foreach (Tile dot in controller.Maps[0].Dots)
+            {  
+                this.Canvas.Children.Add(Dot);
+                UIDots.Add(Dot);
+                PlaceOnCanvas(dot.Position, Dot);
+            }
 
-            this.Canvas.Children.Add(Pinky);
-            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
-            UICharacters[ObjectType.Pinky] = Pinky;
 
-            //=========================================
-
-            
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -106,6 +101,10 @@ namespace PacManNamespace
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;
             if (args.VirtualKey == Windows.System.VirtualKey.Right) dir = Direction.Right;
+            if (args.VirtualKey == Windows.System.VirtualKey.W) dir = Direction.Up;
+            if (args.VirtualKey == Windows.System.VirtualKey.A) dir = Direction.Left;
+            if (args.VirtualKey == Windows.System.VirtualKey.S) dir = Direction.Down;
+            if (args.VirtualKey == Windows.System.VirtualKey.D) dir = Direction.Right;
 
             if (dir != Direction.None)
             {
