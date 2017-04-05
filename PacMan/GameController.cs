@@ -22,7 +22,7 @@ namespace PacManNamespace
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
     
     public enum Level { First, Second, Third}
-    public enum GameState { Playing, GameOver}
+    public enum GameState {None, Playing, GameOver}
     public class GameController: tileChanged
     {
         public List<Map> Maps = new List<Map>();

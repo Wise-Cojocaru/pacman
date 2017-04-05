@@ -42,7 +42,7 @@ namespace PacManNamespace
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             this.InitializeComponent();
             controller.Init();
-            this.Init();
+            
  
         }
 
@@ -125,7 +125,14 @@ namespace PacManNamespace
         {
 
             Direction dir = Direction.None;
-            if (args.VirtualKey == Windows.System.VirtualKey.Enter) dispatcherTimer.Start();
+            if (args.VirtualKey == Windows.System.VirtualKey.Enter && controller.GameState == GameState.None)
+            {
+                this.Init();
+                dispatcherTimer.Start();
+                this.pressEnter.Visibility = Visibility.Collapsed;
+                controller.GameState = GameState.Playing;
+                
+            }
             if (args.VirtualKey == Windows.System.VirtualKey.Up) dir = Direction.Up;
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;

@@ -8,6 +8,7 @@
     mc:Ignorable="d" Width="1024" Height="768">
 
     <StackPanel x:Name="mainStackPanel" Height="768" VerticalAlignment="Top">
+        
         <StackPanel.Background >
             <ImageBrush ImageSource="/Assets/Images/panel.png" />
         </StackPanel.Background>
@@ -16,6 +17,7 @@
                 <Canvas.Background>
                     <ImageBrush ImageSource="/Assets/background.png"/>
                 </Canvas.Background>
+                <TextBlock x:Name="pressEnter" Text="Press 'Enter' to begin" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="153" Canvas.Top="293" />
             </Canvas>
         </StackPanel>
         <Grid HorizontalAlignment="Center">

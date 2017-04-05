@@ -29,8 +29,6 @@ namespace PacManNamespace.Models
                 { Direction.None, "pacman-N.png" }
             };
             this.CurrentImageUrl = Images[Direction];
-
-
             MoveOneTile = new DispatcherTimer();
             MoveOneTile.Tick += dispatcherTimer_Tick;
             MoveOneTile.Interval = new TimeSpan(0, 0, 0, 0, 5);
