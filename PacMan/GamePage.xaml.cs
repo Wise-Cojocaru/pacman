@@ -36,7 +36,7 @@ namespace PacManNamespace
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
-        public const String pathToPng = "ms-appx:///Assets/Images/png/";
+        public const String pathToPng= "ms-appx:///Assets/Images/png/";
         public GamePage()
         {
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
