@@ -110,6 +110,7 @@
     <Compile Include="Models\Ghost.cs" />
     <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Pacman.cs" />
+    <Compile Include="Models\PacmanTest.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Tile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,6 +141,9 @@
     <Content Include="Assets\Images\png\Clyde.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\png\dotTile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\png\Inky.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -159,9 +163,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\png\Pinky.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Images\png\vulnghost.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\maze.txt">

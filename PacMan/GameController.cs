@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PacManNamespace.Models;
-using PacManNamespace.Models.Ghosts;
 using System.IO;
 
 namespace PacManNamespace

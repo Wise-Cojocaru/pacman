@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using PacManNamespace.Models.Ghosts;
 using PacManNamespace.Models;
+using PacManNamespace.Models.Ghosts;
 
 namespace PacmanTest
 {

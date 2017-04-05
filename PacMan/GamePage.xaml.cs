@@ -58,6 +58,10 @@ namespace PacManNamespace
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
+            Image Dot = new Image();
+            Dot.Height = 20;
+            Dot.Width = 20;
+            Dot.Source = new BitmapImage(new Uri(pathToPng + "dotTile.png"));
 
             foreach (Tile dot in controller.Maps[0].Dots)
             {  
@@ -65,6 +69,15 @@ namespace PacManNamespace
                 UIDots.Add(Dot);
                 PlaceOnCanvas(dot.Position, Dot);
             }
+
+            Image Pinky = new Image();
+            Pinky.Height = 20;
+            Pinky.Width = 20;
+            Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
+
+            this.Canvas.Children.Add(Pinky);
+            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
+            UICharacters[ObjectType.Pinky] = Pinky;
 
 
 
