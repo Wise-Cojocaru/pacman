@@ -32,17 +32,17 @@ namespace PacManNamespace
 
         public Dictionary<ObjectType, Image> UICharacters = new Dictionary<ObjectType, Image>();
 
-        public List<UIElement> UIDots = new List<UIElement>();
+        public Dictionary<Tile, UIElement> UIDots = new Dictionary<Tile, UIElement>();
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
-        public const String pathToPng = "ms-appx:///Assets/Images/png/";
+        public const String pathToPng= "ms-appx:///Assets/Images/png/";
         public GamePage()
         {
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             this.InitializeComponent();
             controller.Init();
-            this.Init();
+            
  
         }
 
@@ -52,32 +52,33 @@ namespace PacManNamespace
             Image Pacman = new Image();
             Pacman.Height = 20;
             Pacman.Width = 20;
-            Pacman.Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
+            Pacman.Source = new BitmapImage(new Uri(pathToPng+controller.Pacman.CurrentImageUrl));
 
             this.Canvas.Children.Add(Pacman);
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
-            Image Dot = new Image();
-            Dot.Height = 20;
-            Dot.Width = 20;
-            Dot.Source = new BitmapImage(new Uri(pathToPng + "dotTile.png"));
-
-            foreach (Tile dot in controller.Maps[0].Dots)
-            {  
-                this.Canvas.Children.Add(Dot);
-                UIDots.Add(Dot);
-                PlaceOnCanvas(dot.Position, Dot);
-            }
-
             Image Pinky = new Image();
             Pinky.Height = 20;
             Pinky.Width = 20;
             Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
-
+            
             this.Canvas.Children.Add(Pinky);
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
             UICharacters[ObjectType.Pinky] = Pinky;
+
+            foreach (Tile dot in controller.Maps[0].Dots)
+            {
+                
+                Image Dot = new Image();
+                Dot.Name = dot.ToString();
+                Dot.Height = 20;
+                Dot.Width = 20;
+                Dot.Source = new BitmapImage(new Uri(pathToPng + dot.CurrentImageUrl));
+                UIDots[dot] = Dot;
+                this.Canvas.Children.Add(UIDots[dot]);
+                PlaceOnCanvas(dot.Position, UIDots[dot]);
+            }
 
 
 
@@ -89,13 +90,23 @@ namespace PacManNamespace
 
         private void dispatcherTimer_Tick(object sender, object e)
         {
-            if(controller.GameState == GameState.GameOver)
+            if (controller.GameState == GameState.GameOver)
             {
                 dispatcherTimer.Stop();
             }
 
             controller.MovePacman();
-            
+            if (controller.LastCollidedWith != null)
+            {
+                if (controller.LastCollidedWith.Type == TileType.Dot)
+                {
+                    Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
+                    UIDots[controller.LastCollidedWith] = null;
+                }
+
+            }
+
+            Score.Text = ((Pacman)controller.Pacman).Score.ToString();
             UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
             PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }
@@ -105,11 +116,23 @@ namespace PacManNamespace
             Canvas.SetLeft(element, P.col * 20);
             Canvas.SetTop(element, P.row * 20);
         }
+        public void RemoveFromCanvas(Position P)
+        {
+           
+           
+        }
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 
             Direction dir = Direction.None;
-            if (args.VirtualKey == Windows.System.VirtualKey.Enter) dispatcherTimer.Start();
+            if (args.VirtualKey == Windows.System.VirtualKey.Enter && controller.GameState == GameState.None)
+            {
+                this.Init();
+                dispatcherTimer.Start();
+                this.pressEnter.Visibility = Visibility.Collapsed;
+                controller.GameState = GameState.Playing;
+                
+            }
             if (args.VirtualKey == Windows.System.VirtualKey.Up) dir = Direction.Up;
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;

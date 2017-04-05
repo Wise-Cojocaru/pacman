@@ -22,7 +22,7 @@ namespace PacManNamespace.Models
         public Direction PreviousDirection = Direction.Left;
         public string CurrentImageUrl { get; set; }
 
-        
+        public event EventHandler<int> TileChanged;
 
         public Position Position = new Position();
 
@@ -51,6 +51,8 @@ namespace PacManNamespace.Models
         public int counter { get; set; }
         public Tile()
         {
+            
+
             
         }
 

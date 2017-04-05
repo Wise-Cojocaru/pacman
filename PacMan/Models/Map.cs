@@ -49,7 +49,13 @@ namespace PacManNamespace.Models
 
             return null;
         }
-
+        public void RemoveFromMap(Tile t)
+        {
+            this.Dots.Remove(t);
+            Tile temp = new Tile();
+            temp.Type = TileType.Empty;
+            Maze[(int)t.Position.row, (int)t.Position.col] = temp;
+        }
         public void MoveTile(Tile t)
         {
             int i = (int)Math.Round(t.Position.row);
@@ -93,6 +99,8 @@ namespace PacManNamespace.Models
                     {
                         tempTile = new Tile();
                         tempTile.Type = TileType.Dot;
+                        tempTile.CurrentImageUrl = "dot.png";
+                        tempTile.Value = 1;
                         Dots.Add(tempTile);
 
                     }
