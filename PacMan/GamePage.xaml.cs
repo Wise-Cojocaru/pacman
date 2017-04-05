@@ -61,9 +61,9 @@ namespace PacManNamespace
 
             foreach (Tile dot in controller.Maps[0].Dots)
             {  
-                this.Canvas.Children.Add(Dot);
-                UIDots.Add(Dot);
-                PlaceOnCanvas(dot.Position, Dot);
+                this.Canvas.Children.Add(dot);
+                UIDots.Add(dot);
+                PlaceOnCanvas(dot.Position, dot);
             }
 
 
