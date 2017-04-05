@@ -32,7 +32,7 @@ namespace PacManNamespace
 
         public Dictionary<ObjectType, Image> UICharacters = new Dictionary<ObjectType, Image>();
 
-        public List<UIElement> UIDots = new List<UIElement>();
+        public Dictionary<Tile, UIElement> UIDots = new Dictionary<Tile, UIElement>();
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
@@ -58,12 +58,26 @@ namespace PacManNamespace
             PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
             UICharacters[ObjectType.Pacman] = Pacman;
 
+            Image Pinky = new Image();
+            Pinky.Height = 20;
+            Pinky.Width = 20;
+            Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
+            
+            this.Canvas.Children.Add(Pinky);
+            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
+            UICharacters[ObjectType.Pinky] = Pinky;
 
             foreach (Tile dot in controller.Maps[0].Dots)
-            {  
-                this.Canvas.Children.Add(dot);
-                UIDots.Add(dot);
-                PlaceOnCanvas(dot.Position, dot);
+            {
+                
+                Image Dot = new Image();
+                Dot.Name = dot.ToString();
+                Dot.Height = 20;
+                Dot.Width = 20;
+                Dot.Source = new BitmapImage(new Uri(pathToPng + dot.CurrentImageUrl));
+                UIDots[dot] = Dot;
+                this.Canvas.Children.Add(UIDots[dot]);
+                PlaceOnCanvas(dot.Position, UIDots[dot]);
             }
 
 
@@ -76,13 +90,25 @@ namespace PacManNamespace
 
         private void dispatcherTimer_Tick(object sender, object e)
         {
-            if(controller.GameState == GameState.GameOver)
+            if (controller.GameState == GameState.GameOver)
             {
                 dispatcherTimer.Stop();
             }
 
             controller.MovePacman();
-            
+            if (controller.LastCollidedWith != null)
+            {
+                if (controller.LastCollidedWith.Type == TileType.Dot)
+                {
+                    
+                    Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
+                    UIDots[controller.LastCollidedWith] = null;
+                }
+
+            }
+
+
+
             UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
             PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }
@@ -91,6 +117,11 @@ namespace PacManNamespace
         {
             Canvas.SetLeft(element, P.col * 20);
             Canvas.SetTop(element, P.row * 20);
+        }
+        public void RemoveFromCanvas(Position P)
+        {
+           
+           
         }
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {

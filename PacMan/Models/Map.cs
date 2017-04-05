@@ -92,6 +92,8 @@ namespace PacManNamespace.Models
                     {
                         tempTile = new Tile();
                         tempTile.Type = TileType.Dot;
+                        tempTile.CurrentImageUrl = "dot.png";
+
                         Dots.Add(tempTile);
 
                     }

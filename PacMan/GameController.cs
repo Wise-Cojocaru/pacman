@@ -9,6 +9,10 @@ using System.IO;
 
 namespace PacManNamespace
 {
+    public interface tileChanged
+    {
+        void tileCollsion(Tile t);
+    }
     //
     public interface Serialization
     {
@@ -19,11 +23,11 @@ namespace PacManNamespace
     
     public enum Level { First, Second, Third}
     public enum GameState { Playing, GameOver}
-    public class GameController
+    public class GameController: tileChanged
     {
         public List<Map> Maps = new List<Map>();
 
-        
+        public Tile LastCollidedWith { get; set; }
         public GameState GameState { get; set; }
         public Level CurrentLevel { get; set; }
         public Tile Pacman { get; set; }
@@ -40,7 +44,8 @@ namespace PacManNamespace
         public void MovePacman()
         {
             Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
-            switch(tempTile.Type)
+            LastCollidedWith = tempTile;
+            switch (tempTile.Type)
             {
                 case TileType.Blinky:
                     
@@ -56,15 +61,15 @@ namespace PacManNamespace
                     Pacman.Position.row = Math.Round(Pacman.Position.row);
                     Pacman.Position.col = Math.Round(Pacman.Position.col);
                     break;
+
                 case TileType.Dot:
                     ((Pacman)Pacman).Score += tempTile.Value;
-                    tempTile = new Tile();
-                    tempTile.Type = TileType.Empty;
-
+                    Maps[0].Dots.Remove(tempTile);
 
                     Pacman.Animate();
                     Pacman.Move();
                     Maps[0].MoveTile(Pacman);
+
                     break;
                 default:
                     Pacman.Animate();
@@ -102,6 +107,9 @@ namespace PacManNamespace
             }
         }
 
-        
+        public void tileCollsion(Tile t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
