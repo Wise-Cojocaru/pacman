@@ -8,8 +8,8 @@
     mc:Ignorable="d" Width="1024" Height="768">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="btnStart" Height="50" Width="120" HorizontalAlignment="Center" Content="Start" FontSize="30"/>
-        <Button x:Name="btnAbout" Height="50" Width="120" Content="About" FontSize="30" Margin="366,431,0,287"/>
-        <Button x:Name="btnHelp" Height="50" Width="120" HorizontalAlignment="Right" Content="Help" FontSize="30" Margin="0,431,372,287"/>
+        <Button x:Name="btnStart" Height="50" Width="120" HorizontalAlignment="Center" Content="Start" FontSize="30" Click="btnStart_Click"/>
+        <Button x:Name="btnAbout" Height="50" Width="120" Content="About" FontSize="30" Margin="366,431,0,287" Click="btnAbout_Click"/>
+        <Button x:Name="btnHelp" Height="50" Width="120" HorizontalAlignment="Right" Content="Help" FontSize="30" Margin="0,431,372,287" Click="btnHelp_Click"/>
     </Grid>
 </Page>

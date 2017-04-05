@@ -26,5 +26,20 @@ namespace PacManNamespace
         {
             this.InitializeComponent();
         }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PacMan.AboutPage));
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PacMan.HelpPage));
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(GamePage));
+        }
     }
 }
