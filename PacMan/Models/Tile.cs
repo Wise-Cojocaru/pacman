@@ -52,6 +52,8 @@ namespace PacManNamespace.Models
         public Tile()
         {
             
+
+            
         }
 
        

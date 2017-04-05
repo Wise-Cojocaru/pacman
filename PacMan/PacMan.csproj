@@ -92,6 +92,9 @@
     <Content Include="Assets\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\KOMIKAX_.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Diagram.cd" />
     <None Include="project.json" />
   </ItemGroup>

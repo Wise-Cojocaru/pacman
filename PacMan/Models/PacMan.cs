@@ -10,6 +10,7 @@ namespace PacManNamespace.Models
     public class Pacman : Tile
     {
         public int Score { get; set; }
+        public int Lives { get; set; }
         public DispatcherTimer MoveOneTile;
         public Pacman()
         {

@@ -100,15 +100,13 @@ namespace PacManNamespace
             {
                 if (controller.LastCollidedWith.Type == TileType.Dot)
                 {
-                    
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
                 }
 
             }
 
-
-
+            Score.Text = ((Pacman)controller.Pacman).Score.ToString();
             UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
             PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
         }

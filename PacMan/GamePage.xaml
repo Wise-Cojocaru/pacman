@@ -7,16 +7,26 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Width="1024" Height="768">
 
-    <StackPanel x:Name="mainStackPanel">
+    <StackPanel x:Name="mainStackPanel" Height="768" VerticalAlignment="Top">
         <StackPanel.Background >
             <ImageBrush ImageSource="/Assets/Images/panel.png" />
         </StackPanel.Background>
-
-        <Canvas x:Name="Canvas" Height="620" Width ="560" Margin="222,140,222,0" >
-            <Canvas.Background>
-                <ImageBrush ImageSource="/Assets/background.png"/>
-            </Canvas.Background>
-        </Canvas>
-
+        <StackPanel Height="680">
+            <Canvas x:Name="Canvas" Height="620" Width ="560" Margin="232,50" >
+                <Canvas.Background>
+                    <ImageBrush ImageSource="/Assets/background.png"/>
+                </Canvas.Background>
+            </Canvas>
+        </StackPanel>
+        <Grid HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Left" Margin="0,0,100,0">
+                <TextBlock x:Name="ScoreText"  Text="Score" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="Score"   Text="0" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Margin="100,0,0,0">
+                <TextBlock x:Name="LivesText" Text="Lives" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="LivesNr" Text="3" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
     </StackPanel>
 </Page>

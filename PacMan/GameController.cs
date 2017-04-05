@@ -64,12 +64,18 @@ namespace PacManNamespace
 
                 case TileType.Dot:
                     ((Pacman)Pacman).Score += tempTile.Value;
-                    Maps[0].Dots.Remove(tempTile);
+                    Maps[0].RemoveFromMap(tempTile);
 
-                    Pacman.Animate();
-                    Pacman.Move();
-                    Maps[0].MoveTile(Pacman);
-
+                    if(Maps[0].Dots.Count == 0)
+                    {
+                        GameState = GameState.GameOver;
+                    }
+                    else
+                    {
+                        Pacman.Animate();
+                        Pacman.Move();
+                        Maps[0].MoveTile(Pacman);
+                    }
                     break;
                 default:
                     Pacman.Animate();
