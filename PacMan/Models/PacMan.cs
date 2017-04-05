@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace PacManNamespace.Models
 {
     public class Pacman : Tile
     {
-        
+        public int Score { get; set; }
+        public DispatcherTimer MoveOneTile;
         public Pacman()
         {
             this.Type = TileType.Pacman;
@@ -16,18 +18,26 @@ namespace PacManNamespace.Models
             this.Direction = Direction.Left;
             this.Position = new Position();
             this.isMoving = true;
-
+            this.Score = 0;
             Images = new Dictionary<Direction, string>()
             {
-                { Direction.Left, "ms-appx:///Assets/Images/png/pacman-L.png" },
-                { Direction.Right,  "ms-appx:///Assets/Images/png/pacman-R.png" },
-                { Direction.Up,  "ms-appx:///Assets/Images/png/pacman-U.png" },
-                { Direction.Down,  "ms-appx:///Assets/Images/png/pacman-D.png" },
-                { Direction.None, "ms-appx:///Assets/Images/png/pacman-N.png" }
+                { Direction.Left, "pacman-L.png" },
+                { Direction.Right,  "pacman-R.png" },
+                { Direction.Up,  "pacman-U.png" },
+                { Direction.Down,  "pacman-D.png" },
+                { Direction.None, "pacman-N.png" }
             };
-            this.CurrentImageUrl = Images[Direction.Left];
-        }
+            this.CurrentImageUrl = Images[Direction];
 
+
+            MoveOneTile = new DispatcherTimer();
+            MoveOneTile.Tick += dispatcherTimer_Tick;
+            MoveOneTile.Interval = new TimeSpan(0, 0, 0, 0, 5);
+        }
+        private void dispatcherTimer_Tick(object sender, object e)
+        {
+            Move();
+        }
         public override void Animate()
         {
 
