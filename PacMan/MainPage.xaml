@@ -7,9 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Width="1024" Height="768">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="btnStart" Height="50" Width="120" HorizontalAlignment="Center" Content="Start" FontSize="30" Click="btnStart_Click"/>
-        <Button x:Name="btnAbout" Height="50" Width="120" Content="About" FontSize="30" Margin="366,431,0,287" Click="btnAbout_Click"/>
-        <Button x:Name="btnHelp" Height="50" Width="120" HorizontalAlignment="Right" Content="Help" FontSize="30" Margin="0,431,372,287" Click="btnHelp_Click"/>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/Images/Title Screen.jpg" />
+        </Grid.Background>
+
+        <Button x:Name="btnStart" Height="100" Width="240" HorizontalAlignment="Center" FontSize="30" Click="btnStart_Click">
+            <Image Source="Assets/Images/Start Button.jpg"/>
+        </Button>
+        <Button x:Name="btnAbout" Height="50" Width="120" FontSize="30" Margin="512,443,0,275" Click="btnAbout_Click">
+            <Image Source="Assets/Images/About Button.jpg"/>
+        </Button>
+        <Button x:Name="btnHelp" Height="50" Width="120" HorizontalAlignment="Right" FontSize="30" Margin="0,443,514,275" Click="btnHelp_Click">
+            <Image Source="Assets/Images/Help Button.jpg" Margin="0.667,0,0,0"/>
+        </Button>
+        <Button x:Name="btnCustomize" Height="70" Width="150" HorizontalAlignment="Center" FontSize="30" Click="btnCustomize_Click" Margin="437,497,437,201">
+            <Image Source="Assets/Images/Customize Button.jpg"/>
+        </Button>
     </Grid>
 </Page>

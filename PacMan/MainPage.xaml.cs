@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PacMan;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,17 +30,22 @@ namespace PacManNamespace
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PacMan.AboutPage));
+            this.Frame.Navigate(typeof(AboutPage));
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PacMan.HelpPage));
+            this.Frame.Navigate(typeof(HelpPage));
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GamePage));
+            this.Frame.Navigate(typeof(GamePage));
+        }
+
+        private void btnCustomize_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -8,7 +8,7 @@
     mc:Ignorable="d" Width="1024" Height="768">
 
     <StackPanel x:Name="mainStackPanel" Height="768" VerticalAlignment="Top">
-        
+
         <StackPanel.Background >
             <ImageBrush ImageSource="/Assets/Images/panel.png" />
         </StackPanel.Background>

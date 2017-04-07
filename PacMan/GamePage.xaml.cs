@@ -17,6 +17,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PacManNamespace.Models;
 using Windows.System.Threading;
+using Windows.UI;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace PacManNamespace
@@ -42,7 +43,6 @@ namespace PacManNamespace
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             this.InitializeComponent();
             controller.Init();
-            
  
         }
 

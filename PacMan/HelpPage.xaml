@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="Black">
-        <Image x:Name="imgHelp" Source="Assets/Images/Help Screen.jpg" Stretch="Fill"/>
+        <Image x:Name="imgHelp" Source="Assets/Images/Help Screen.jpg"/>
     </Grid>
 </Page>
