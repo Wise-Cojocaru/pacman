@@ -5,14 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using PacManNamespace.Models;
 using System.IO;
+using PacManNamespace.Models.Ghosts;
 
 namespace PacManNamespace
 {
-    public interface tileChanged
-    {
-        void tileCollsion(Tile t);
-    }
-    //
+   
     public interface Serialization
     {
         string Serialize();
@@ -22,7 +19,7 @@ namespace PacManNamespace
     
     public enum Level { First, Second, Third}
     public enum GameState {None, Playing, GameOver}
-    public class GameController: tileChanged
+    public class GameController
     {
         public List<Map> Maps = new List<Map>();
 
@@ -47,7 +44,6 @@ namespace PacManNamespace
             switch (tempTile.Type)
             {
                 case TileType.Blinky:
-                    
                     break;
                 case TileType.Pinky:
                     break;
@@ -84,6 +80,13 @@ namespace PacManNamespace
             }
 
         }
+        public void MoveGhosts()
+        {
+            //Blinky.Move();
+            //Inky.Move();
+            ((Ghost)Pinky).Move();
+            //Clyde.Move();
+        }
         public void Init()
         {
 
@@ -112,9 +115,6 @@ namespace PacManNamespace
             }
         }
 
-        public void tileCollsion(Tile t)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

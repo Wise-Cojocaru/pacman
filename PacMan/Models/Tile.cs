@@ -58,7 +58,7 @@ namespace PacManNamespace.Models
 
        
 
-        public void Move()
+        public virtual void Move()
         {
 
             if (this.Direction == Direction.Left)

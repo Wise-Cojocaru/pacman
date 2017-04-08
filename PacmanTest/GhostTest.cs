@@ -12,7 +12,8 @@ namespace PacmanTest
         //Tests all movements by ghosts based on direction
         public void Move_AllDirections_Success()
         {
-            Ghost g = new Ghost(TileType.Blinky);
+            Map map = new Map();
+            Ghost g = new Ghost(map, TileType.Blinky);
 
             //Right
             g.Direction = Direction.Right;

@@ -112,22 +112,22 @@ namespace PacManNamespace.Models
                     }
                     if (col == 'B')
                     {
-                        tempTile = new Ghost(TileType.Blinky);
+                        tempTile = new Ghost(this, TileType.Blinky);
                         Characters[ObjectType.Blinky] = tempTile;
                     }
                     if (col == 'I')
                     {
-                        tempTile = new Ghost(TileType.Inky);
+                        tempTile = new Ghost(this, TileType.Inky);
                         Characters[ObjectType.Inky] = tempTile;
                     }
                     if (col == 'P')
                     {
-                        tempTile = new Ghost(TileType.Pinky);
+                        tempTile = new Ghost(this, TileType.Pinky);
                         Characters[ObjectType.Pinky] = tempTile;
                     }
                     if (col == 'C')
                     {
-                        tempTile = new Ghost(TileType.Clyde);
+                        tempTile = new Ghost(this, TileType.Clyde);
                         Characters[ObjectType.Clyde] = tempTile;
                     }
                     if (col == 'M')
