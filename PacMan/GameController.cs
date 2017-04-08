@@ -18,7 +18,7 @@ namespace PacManNamespace
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
     
     public enum Level { First, Second, Third}
-    public enum GameState {None, Playing, GameOver}
+    public enum GameState {None, Pause, Playing, Lost, Won}
     public class GameController
     {
         public List<Map> Maps = new List<Map>();
@@ -40,21 +40,12 @@ namespace PacManNamespace
         public void MovePacman()
         {
             
-
-
             Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
             LastCollidedWith = tempTile;
-            
+
             switch (tempTile.Type)
             {
-                case TileType.Blinky:
-                    break;
-                case TileType.Pinky:
-                    break;
-                case TileType.Inky:
-                    break;
-                case TileType.Clyde:
-                    break;
+                
                 case TileType.Wall:
 
                     Pacman.Position.row = Math.Round(Pacman.Position.row);
@@ -67,33 +58,58 @@ namespace PacManNamespace
 
                     if(Maps[0].Dots.Count == 0)
                     {
-                        GameState = GameState.GameOver;
+                        GameState = GameState.Won;
                     }
                     else
                     {
                         Pacman.Animate();
                         Pacman.Move();
-                        Maps[0].MoveTile(Pacman);
                     }
                     break;
                 default:
-                    
                     Pacman.Animate();
                     Pacman.Move();
-                    Maps[0].MoveTile(Pacman);
                     break;
             }
 
             if ((Pacman.Position.row) % 1 < 0.2 && (Pacman.Position.col % 1) < 0.2)
                 Pacman.Direction = Pacman.PreviousDirection;
 
+            Tile GhostTile = Maps[0].CollisionWithGhost();
+            if (GhostTile != null)
+            {
+
+                if (GhostTile.Vulnerable)
+                {
+                    ((Pacman)Pacman).Score += GhostTile.Value;
+                    GhostTile.Position = GhostTile.StartPosition;
+                }
+                else
+                {
+                    ((Pacman)Pacman).Lives -= 1;
+                    if (((Pacman)Pacman).Lives == 0)
+                    {
+                        GameState = GameState.Lost;
+                    }
+                    else
+                    {
+                        GameState = GameState.Pause;
+                        Pacman.Position.col = Pacman.StartPosition.col;
+                        Pacman.Position.row = Pacman.StartPosition.row;
+                        Pacman.Direction = Direction.Left;
+                    }
+                    
+                }
+            }
+            
+            
         }
         public void MoveGhosts()
         {
-            //Blinky.Move();
-            //Inky.Move();
+            ((Ghost)Blinky).Move();
+            ((Ghost)Inky).Move();
             ((Ghost)Pinky).Move();
-            //Clyde.Move();
+            ((Ghost)Clyde).Move();
         }
         public void Init()
         {

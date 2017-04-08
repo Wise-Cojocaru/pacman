@@ -9,13 +9,15 @@ namespace PacManNamespace.Models.Ghosts
     public class Ghost : Tile
     {
         Random r = new Random();
-        public bool Vulnerable { get; set; }
+        
+
         public List<Direction> DirectionsToChoose = new List<Direction>();
         public Map map { get; set; }
         public Ghost(Map map, TileType type)
         {
+            this.Vulnerable = false;
             this.Direction = Direction.Up;
-            this.Speed = 0.2;
+            this.Speed = 0.1;
             this.map = map;
 
             if (type == TileType.Blinky)

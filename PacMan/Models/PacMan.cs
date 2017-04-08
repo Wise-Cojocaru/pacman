@@ -21,6 +21,8 @@ namespace PacManNamespace.Models
             this.isMoving = true;
             this.Score = 0;
             this.Lives = 3;
+            this.StartPosition.col = 13;
+            this.StartPosition.row = 23;
             Images = new Dictionary<Direction, string>()
             {
                 { Direction.Left, "pacman-L.png" },

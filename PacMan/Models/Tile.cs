@@ -19,12 +19,16 @@ namespace PacManNamespace.Models
 
         public bool isMoving { get; set; }
 
+        public bool Vulnerable { get; set; }
+
         public Direction PreviousDirection = Direction.Left;
         public string CurrentImageUrl { get; set; }
 
         public event EventHandler<int> TileChanged;
 
         public Position Position = new Position();
+
+        public Position StartPosition = new Position();
 
         public Position PrevPosition = new Position();
 
@@ -47,8 +51,8 @@ namespace PacManNamespace.Models
 
         public virtual void Move()
         {
+            PrevPosition = Position;
             
-
             if (this.Direction == Direction.Left)
             {
                 Position.row = Math.Round(Position.row);

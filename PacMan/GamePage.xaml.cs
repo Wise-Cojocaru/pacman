@@ -65,24 +65,18 @@ namespace PacManNamespace
 
 
             }
-            Image Pacman = new Image();
-            Pacman.Height = 20;
-            Pacman.Width = 20;
-            Pacman.Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
-
-            this.Canvas.Children.Add(Pacman);
-            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pacman].Position, Pacman);
-            UICharacters[ObjectType.Pacman] = Pacman;
-
-            Image Pinky = new Image();
-            Pinky.Height = 20;
-            Pinky.Width = 20;
-            Pinky.Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
-
-            this.Canvas.Children.Add(Pinky);
-            PlaceOnCanvas(controller.Maps[0].Characters[ObjectType.Pinky].Position, Pinky);
-            UICharacters[ObjectType.Pinky] = Pinky;
-
+            foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
+            {
+                Image Object = new Image();
+                Object.Height = 20;
+                Object.Width = 20;
+                
+                Object.Source = new BitmapImage(new Uri(pathToPng + controller.Maps[0].Characters[Type].CurrentImageUrl));
+                this.Canvas.Children.Add(Object);
+                PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, Object);
+                UICharacters[Type] = Object;
+            }
+            
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
@@ -92,14 +86,10 @@ namespace PacManNamespace
 
         private void dispatcherTimer_Tick(object sender, object e)
         {
-            if (controller.GameState == GameState.GameOver)
-            {
-                dispatcherTimer.Stop();
-            }
 
             controller.MovePacman();
             controller.MoveGhosts();
-
+            
             if (controller.LastCollidedWith != null)
             {
                 if (controller.LastCollidedWith.Type == TileType.Dot)
@@ -107,16 +97,48 @@ namespace PacManNamespace
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
                 }
+                
 
             }
 
             Score.Text = ((Pacman)controller.Pacman).Score.ToString();
+            LivesNr.Text = ((Pacman)controller.Pacman).Lives.ToString();
 
-            UICharacters[ObjectType.Pacman].Source = new BitmapImage(new Uri(pathToPng + controller.Pacman.CurrentImageUrl));
-            PlaceOnCanvas(controller.Pacman.Position, UICharacters[ObjectType.Pacman]);
 
-            UICharacters[ObjectType.Pinky].Source = new BitmapImage(new Uri(pathToPng + controller.Pinky.CurrentImageUrl));
-            PlaceOnCanvas(controller.Pinky.Position, UICharacters[ObjectType.Pinky]);
+
+
+            foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
+            {
+                UICharacters[Type].Source = new BitmapImage(new Uri(pathToPng + controller.Maps[0].Characters[Type].CurrentImageUrl));
+                PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, UICharacters[Type]);
+            }
+
+
+
+
+
+
+
+            
+
+            if (controller.GameState == GameState.Lost )
+            {
+                dispatcherTimer.Stop();
+                this.GameOver.Visibility = Visibility.Visible;
+            }
+            if (controller.GameState == GameState.Pause)
+            {
+                dispatcherTimer.Stop();
+                this.pressEnter.Visibility = Visibility.Visible;
+            }
+            if (controller.GameState == GameState.Won)
+            {
+                dispatcherTimer.Stop();
+                this.Won.Visibility = Visibility.Visible;
+            }
+
+
+
         }
 
         public void PlaceOnCanvas(Position P, UIElement element)
@@ -133,14 +155,22 @@ namespace PacManNamespace
         {
 
             Direction dir = Direction.None;
-            if (args.VirtualKey == Windows.System.VirtualKey.Enter && controller.GameState == GameState.None)
+            if (args.VirtualKey == Windows.System.VirtualKey.Enter)
             {
-                this.Init();
-                dispatcherTimer.Start();
-                this.pressEnter.Visibility = Visibility.Collapsed;
-                controller.GameState = GameState.Playing;
+                if (controller.GameState == GameState.None)
+                {
+                    this.Init();
+
+                }
+                if (controller.GameState == GameState.Pause || controller.GameState == GameState.None)
+                {
+                    dispatcherTimer.Start();
+                    this.pressEnter.Visibility = Visibility.Collapsed;
+                    controller.GameState = GameState.Playing;
+                }
                 
             }
+            
             if (args.VirtualKey == Windows.System.VirtualKey.Up) dir = Direction.Up;
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;

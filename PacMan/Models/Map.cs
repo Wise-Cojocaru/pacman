@@ -22,6 +22,22 @@ namespace PacManNamespace.Models
             Maze = new Tile[31, 28];
         }
 
+        public Tile CollisionWithGhost()
+        {
+            int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
+            int pacCol = (int)(Characters[ObjectType.Pacman].Position.col);
+            foreach (ObjectType key in Characters.Keys)
+            {
+                if (key != ObjectType.Pacman)
+                {
+                    if ((int)(Characters[key].Position.col) == pacCol && (int)(Characters[key].Position.row) == pacRow)
+                    {
+                        return Characters[key];
+                    }
+                }
+            }
+            return null;
+        }
         public Tile Collision(Direction direction, Tile tile)
         {
             int x = (int)(tile.Position.col);
@@ -134,6 +150,7 @@ namespace PacManNamespace.Models
                     {
                         tempTile = new Pacman();
                         Characters[ObjectType.Pacman] = tempTile;
+                        
                     }
 
                     
