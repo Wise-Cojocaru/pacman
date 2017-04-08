@@ -39,8 +39,12 @@ namespace PacManNamespace
 
         public void MovePacman()
         {
+            
+
+
             Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
             LastCollidedWith = tempTile;
+            
             switch (tempTile.Type)
             {
                 case TileType.Blinky:
@@ -73,11 +77,15 @@ namespace PacManNamespace
                     }
                     break;
                 default:
+                    
                     Pacman.Animate();
                     Pacman.Move();
                     Maps[0].MoveTile(Pacman);
                     break;
             }
+
+            if ((Pacman.Position.row) % 1 < 0.2 && (Pacman.Position.col % 1) < 0.2)
+                Pacman.Direction = Pacman.PreviousDirection;
 
         }
         public void MoveGhosts()

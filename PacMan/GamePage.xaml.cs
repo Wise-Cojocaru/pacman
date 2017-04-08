@@ -154,7 +154,7 @@ namespace PacManNamespace
             {
                 
                 controller.Pacman.PreviousDirection = controller.Pacman.Direction;
-                controller.Pacman.Direction = dir;
+                controller.Pacman.PreviousDirection = dir;
 
             }
         }

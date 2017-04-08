@@ -57,38 +57,46 @@ namespace PacManNamespace.Models.Ghosts
             double rowDiff = Position.row - map.Characters[ObjectType.Pacman].Position.row;
 
             Tile tempTile = map.Collision(this.Direction, this);
+            Direction temp;
 
+            if (Math.Abs(colDiff) > Math.Abs(rowDiff))
+            {
+                if (colDiff < 0) temp = Direction.Right;
+                else temp = Direction.Left;
+
+            }
+            else
+            {
+                if (rowDiff < 0) temp = Direction.Down;
+                else temp = Direction.Up;
+            }
             switch (tempTile.Type)
             {
                 case TileType.Wall:
 
                     this.Position.row = Math.Round(this.Position.row);
                     this.Position.col = Math.Round(this.Position.col);
-                    if (map.Maze[currRow + 1, currCol].Type != TileType.Wall)
+                    if (map.Maze[currRow + 1, currCol].Type != TileType.Wall && Direction != Direction.Up)
                         DirectionsToChoose.Add(Direction.Down);
-                    if (map.Maze[currRow - 1, currCol].Type != TileType.Wall)
+                    if (map.Maze[currRow - 1, currCol].Type != TileType.Wall && Direction != Direction.Down)
                         DirectionsToChoose.Add(Direction.Up);
-                    if (map.Maze[currRow, currCol + 1].Type != TileType.Wall)
+                    if (map.Maze[currRow, currCol + 1].Type != TileType.Wall && Direction != Direction.Left)
                         DirectionsToChoose.Add(Direction.Right);
-                    if (map.Maze[currRow, currCol - 1].Type != TileType.Wall)
+                    if (map.Maze[currRow, currCol - 1].Type != TileType.Wall && Direction != Direction.Right)
                         DirectionsToChoose.Add(Direction.Left);
 
-                    if(Math.Abs(colDiff) > Math.Abs(rowDiff))
-                    {
-                        if (colDiff < 0) Direction = Direction.Right;
-                        else Direction = Direction.Left;
-
-                    }
+                    if (DirectionsToChoose.Contains(temp))
+                        this.Direction = temp;
                     else
-                    {
-                        if (rowDiff < 0) Direction = Direction.Down;
-                        else Direction = Direction.Up;
-                    }
-
-                    //this.Direction = DirectionsToChoose[Math.Abs(r.Next(-DirectionsToChoose.Count + 1, DirectionsToChoose.Count - 1))];
-                    DirectionsToChoose = new List<Direction>();
+                        this.Direction = DirectionsToChoose[Math.Abs(r.Next(-DirectionsToChoose.Count + 1, DirectionsToChoose.Count - 1))];
+                   
                     break;
             }
+            if(DirectionsToChoose.Count == 3)
+            {
+                this.Direction = temp;
+            }
+            DirectionsToChoose = new List<Direction>();
         }
 
     }

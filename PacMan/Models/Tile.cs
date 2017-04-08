@@ -28,20 +28,7 @@ namespace PacManNamespace.Models
 
         public Position PrevPosition = new Position();
 
-        public Position AbsPosition {
-            get
-            {
-                AbsPosition.col = Position.col + 10;
-                AbsPosition.row = Position.row + 10;
-                return AbsPosition;
-            }
-
-
-            set
-            {
-                AbsPosition = value;
-            }
-        }
+        public Position AbsPosition { get; set; }
         public double Speed { get; set; }
 
         public Direction Direction { get; set; }
@@ -60,6 +47,7 @@ namespace PacManNamespace.Models
 
         public virtual void Move()
         {
+            
 
             if (this.Direction == Direction.Left)
             {
