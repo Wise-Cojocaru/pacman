@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PacManNamespace.Models;
 using System.IO;
 using PacManNamespace.Models.Ghosts;
+using System.Threading;
 
 namespace PacManNamespace
 {
@@ -66,6 +67,24 @@ namespace PacManNamespace
                         Pacman.Move();
                     }
                     break;
+
+                case TileType.MakeVulnerable:
+                    ((Pacman)Pacman).Score += tempTile.Value;
+                    Maps[0].RemoveFromMap(tempTile);
+                    Maps[0].MakeGhostVulnerable();
+
+                    Task<int> t = Task.Run(() => MakeGhostNormal());
+
+                    if (Maps[0].Dots.Count == 0)
+                    {
+                        GameState = GameState.Won;
+                    }
+                    else
+                    {
+                        Pacman.Animate();
+                        Pacman.Move();
+                    }
+                    break;
                 default:
                     Pacman.Animate();
                     Pacman.Move();
@@ -82,7 +101,9 @@ namespace PacManNamespace
                 if (GhostTile.Vulnerable)
                 {
                     ((Pacman)Pacman).Score += GhostTile.Value;
-                    GhostTile.Position = GhostTile.StartPosition;
+                    GhostTile.Position.col = GhostTile.StartPosition.col;
+                    GhostTile.Position.row = GhostTile.StartPosition.row;
+                    GhostTile.Direction = Direction.Up;
                 }
                 else
                 {
@@ -104,13 +125,27 @@ namespace PacManNamespace
             
             
         }
+
+        private Task<int> MakeGhostNormal()
+        {
+            Task.Delay(TimeSpan.FromSeconds(6)).Wait();
+            foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
+            {
+                if (Type != ObjectType.Pacman)
+                    ((Ghost)Maps[0].Characters[Type]).MakeNormal();
+            }
+            return Task.FromResult(0);
+        }
+
         public void MoveGhosts()
         {
-            ((Ghost)Blinky).Move();
-            ((Ghost)Inky).Move();
-            ((Ghost)Pinky).Move();
-            ((Ghost)Clyde).Move();
+            foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
+            {
+                if(Type != ObjectType.Pacman)
+                    ((Ghost)Maps[0].Characters[Type]).Move();
+            }
         }
+
         public void Init()
         {
 

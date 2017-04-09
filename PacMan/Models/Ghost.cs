@@ -23,26 +23,46 @@ namespace PacManNamespace.Models.Ghosts
             if (type == TileType.Blinky)
             {
                 CurrentImageUrl = "Blinky.png";
+                StartPosition.col = 15;
+                StartPosition.row = 15;
             }
             if (type == TileType.Inky)
             {
                 CurrentImageUrl = "Inky.png";
+                StartPosition.col = 13;
+                StartPosition.row = 15;
             }
             if (type == TileType.Pinky)
             {
                 CurrentImageUrl = "Pinky.png";
+                StartPosition.col = 12;
+                StartPosition.row = 15;
             }
             if (type == TileType.Clyde)
             {
                 CurrentImageUrl = "Clyde.png";
+                StartPosition.col = 14;
+                StartPosition.row = 15;
             }
-
-            if(Vulnerable)
+            if (Vulnerable)
             {
                 CurrentImageUrl = "vulnghost.png";
             }
 
+
             this.Type = type;
+        }
+        public void MakeVulnerable()
+        {
+            Vulnerable = true;
+            CurrentImageUrl = "vulnghost.png";
+            
+        }
+
+        public void MakeNormal()
+        {
+           CurrentImageUrl = Type.ToString() + ".png";
+           Vulnerable = false;   
         }
         public override void Move()
         {

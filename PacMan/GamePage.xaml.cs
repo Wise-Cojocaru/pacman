@@ -92,19 +92,16 @@ namespace PacManNamespace
             
             if (controller.LastCollidedWith != null)
             {
-                if (controller.LastCollidedWith.Type == TileType.Dot)
+                if (controller.LastCollidedWith.Type == TileType.Dot || controller.LastCollidedWith.Type == TileType.MakeVulnerable)
                 {
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
                 }
-                
 
             }
 
             Score.Text = ((Pacman)controller.Pacman).Score.ToString();
             LivesNr.Text = ((Pacman)controller.Pacman).Lives.ToString();
-
-
 
 
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -113,13 +110,6 @@ namespace PacManNamespace
                 PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, UICharacters[Type]);
             }
 
-
-
-
-
-
-
-            
 
             if (controller.GameState == GameState.Lost )
             {
@@ -146,11 +136,7 @@ namespace PacManNamespace
             Canvas.SetLeft(element, P.col * 20);
             Canvas.SetTop(element, P.row * 20);
         }
-        public void RemoveFromCanvas(Position P)
-        {
-           
-           
-        }
+        
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 

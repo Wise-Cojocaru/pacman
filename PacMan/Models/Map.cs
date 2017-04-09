@@ -22,6 +22,17 @@ namespace PacManNamespace.Models
             Maze = new Tile[31, 28];
         }
 
+        public void MakeGhostVulnerable()
+        {
+            foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
+            {
+                if (Type != ObjectType.Pacman)
+                {
+                    ((Ghost)Characters[Type]).MakeVulnerable();
+
+                }
+            }
+        }
         public Tile CollisionWithGhost()
         {
             int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
@@ -44,22 +55,22 @@ namespace PacManNamespace.Models
             int y = (int)(tile.Position.row);
             if (direction == Direction.Left)
             {
-                x = (int)(tile.Position.col - 0.2);
+                x = (int)(tile.Position.col - Characters[ObjectType.Pacman].Speed);
                 return Maze[y, x];
             }
             if (direction == Direction.Right)
             {
-                x = (int)(tile.Position.col + 1 + 0.2);
+                x = (int)(tile.Position.col + 1 + Characters[ObjectType.Pacman].Speed);
                 return Maze[y, x];
             }
             if (direction == Direction.Down)
             {
-                y = (int)(tile.Position.row + 1 + 0.2);
+                y = (int)(tile.Position.row + 1 + Characters[ObjectType.Pacman].Speed);
                 return Maze[y, x ];
             }
             if (direction == Direction.Up)
             {
-                y = (int)(tile.Position.row - 0.2);
+                y = (int)(tile.Position.row - Characters[ObjectType.Pacman].Speed);
                 return Maze[y, x];
             }
 
@@ -120,10 +131,14 @@ namespace PacManNamespace.Models
                         Dots.Add(tempTile);
 
                     }
+                   
                     if (col == 'V')
                     {
                         tempTile = new Tile();
                         tempTile.Type = TileType.MakeVulnerable;
+                        tempTile.CurrentImageUrl = "makevuln.png";
+                        tempTile.Value = 1;
+                        Dots.Add(tempTile);
 
                     }
                     if (col == 'B')
