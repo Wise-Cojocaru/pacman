@@ -16,6 +16,7 @@ namespace PacManNamespace.Models
 
         public Dictionary<ObjectType, Tile> Characters = new Dictionary<ObjectType, Tile>();
 
+        public int CurrentLevel { get; set;}
         public List<Tile> Dots = new List<Tile>();
         public Map()
         {

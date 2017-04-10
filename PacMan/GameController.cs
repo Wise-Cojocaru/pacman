@@ -26,13 +26,14 @@ namespace PacManNamespace
 
         public Tile LastCollidedWith { get; set; }
         public GameState GameState { get; set; }
-        public Level CurrentLevel { get; set; }
+        public int CurrentLevel { get; set; }
         public Tile Pacman { get; set; }
         public Tile Blinky { get; set; }
         public Tile Pinky { get; set; }
         public Tile Inky { get; set; }
         public Tile Clyde { get; set; }
-        
+
+        public Task<int> MakeGhostsNormalTask;
         public GameController()
         {
 
@@ -73,8 +74,9 @@ namespace PacManNamespace
                     Maps[0].RemoveFromMap(tempTile);
                     Maps[0].MakeGhostVulnerable();
 
-                    Task<int> t = Task.Run(() => MakeGhostNormal());
-
+                    
+                    MakeGhostsNormalTask = Task.Run(() => MakeGhostNormal());
+                   
                     if (Maps[0].Dots.Count == 0)
                     {
                         GameState = GameState.Won;
@@ -128,7 +130,7 @@ namespace PacManNamespace
 
         private Task<int> MakeGhostNormal()
         {
-            Task.Delay(TimeSpan.FromSeconds(6)).Wait();
+            Task.Delay(TimeSpan.FromSeconds(10)).Wait();
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
             {
                 if (Type != ObjectType.Pacman)
