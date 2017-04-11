@@ -26,6 +26,7 @@ namespace PacManNamespace
         public Tile LastCollidedWith { get; set; }
         public bool AteGhost { get; set; }
         public bool PacDead { get; set; }
+        public bool isCheating { get; set; }
         public GameState GameState { get; set; }
         public int CurrentLevel { get; set; }
         public Tile Pacman { get; set; }
@@ -112,20 +113,24 @@ namespace PacManNamespace
                 }
                 else
                 {
-                    PacDead = true;
-                    ((Pacman)Pacman).Lives -= 1;
-                    if (((Pacman)Pacman).Lives == 0)
+                    if (!isCheating)
                     {
                         PacDead = true;
-                        GameState = GameState.Lost;
+                        ((Pacman)Pacman).Lives -= 1;
+                        if (((Pacman)Pacman).Lives == 0)
+                        {
+                            PacDead = true;
+                            GameState = GameState.Lost;
+                        }
+                        else
+                        {
+                            GameState = GameState.Pause;
+                            Pacman.Position.col = Pacman.StartPosition.col;
+                            Pacman.Position.row = Pacman.StartPosition.row;
+                            Pacman.Direction = Direction.Left;
+                        }
                     }
-                    else
-                    {
-                        GameState = GameState.Pause;
-                        Pacman.Position.col = Pacman.StartPosition.col;
-                        Pacman.Position.row = Pacman.StartPosition.row;
-                        Pacman.Direction = Direction.Left;
-                    }
+                    
                     
                 }
             }

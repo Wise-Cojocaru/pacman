@@ -137,6 +137,8 @@
     <Content Include="Assets\KOMIKAX_.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Fonts\PAC-FONT.TTF" />
+    <Content Include="Assets\Fonts\SUBWT___.ttf" />
     <None Include="Diagram.cd" />
     <None Include="project.json" />
   </ItemGroup>

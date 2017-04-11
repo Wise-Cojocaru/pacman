@@ -17,22 +17,24 @@
                 <Canvas.Background>
                     <ImageBrush ImageSource="/Assets/background.png"/>
                 </Canvas.Background>
-                <TextBlock x:Name="CountDownText" Text="3" Visibility="Collapsed" Foreground="Yellow" FontSize="50" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="266" Canvas.Left="278"/>
-                <TextBlock x:Name="pressEnter" Text="Press Enter to begin" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="153" Canvas.Top="293" />
-                <TextBlock x:Name="GameOver" Text="Game Over" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="221" />
+                <TextBlock x:Name="CountDownText" Text="3" Visibility="Collapsed" Foreground="Yellow" FontSize="50" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="266" Canvas.Left="278"/>
+                <TextBlock x:Name="pressEnter" Text="Press Enter to begin" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="153" Canvas.Top="293" />
+                <TextBlock x:Name="GameOver" Text="Game Over" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="221" />
                 <TextBlock x:Name="Won" Text="Won" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="257" />
 
             </Canvas>
         </StackPanel>
         <Grid HorizontalAlignment="Center">
             <StackPanel HorizontalAlignment="Left" Margin="0,0,100,0">
-                <TextBlock x:Name="ScoreText"  Text="Score" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock x:Name="Score"   Text="0" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="ScoreText"  Text="Score" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="Score"   Text="0" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Margin="100,0,0,0">
-                <TextBlock x:Name="LivesText" Text="Lives" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock x:Name="LivesNr" Text="3" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="LivesText" Text="Lives" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="LivesNr" Text="3" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
+            <TextBlock x:Name="CheatText"  Text="Cheating" Foreground="Yellow" FontSize="20" Visibility="Collapsed" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" VerticalAlignment="Center" RenderTransformOrigin="1.112,0.362" Margin="266,-8,-207,29" />
         </Grid>
     </StackPanel>
 </Page>

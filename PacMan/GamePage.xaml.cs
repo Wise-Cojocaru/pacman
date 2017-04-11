@@ -109,7 +109,7 @@ namespace PacManNamespace
                 Task.Run(() => PlaySound(SoundType.eatghost)) ;
                 controller.AteGhost = false;
             }
-            if (controller.PacDead)
+            if (controller.PacDead && !controller.isCheating)
             {
                 Task.Run(() => PlaySound(SoundType.death));
                 controller.PacDead = false;
@@ -230,7 +230,16 @@ namespace PacManNamespace
             if (args.VirtualKey == Windows.System.VirtualKey.A) dir = Direction.Left;
             if (args.VirtualKey == Windows.System.VirtualKey.S) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.D) dir = Direction.Right;
-
+            if (args.VirtualKey == Windows.System.VirtualKey.C)
+            {
+                controller.isCheating = !controller.isCheating;
+                if(controller.isCheating)
+                    CheatText.Visibility = Visibility.Visible;
+                else
+                    CheatText.Visibility = Visibility.Collapsed;
+            }
+                
+                
             if (dir != Direction.None)
             {
 
