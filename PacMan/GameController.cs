@@ -17,14 +17,15 @@ namespace PacManNamespace
         void Deserialize();
     }
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
-    
+    public enum SoundType { beginning, chomp, death, eatghost, extrapac,intermission }
     public enum Level { First, Second, Third}
     public enum GameState {None, Pause, Playing, Lost, Won}
     public class GameController
     {
         public List<Map> Maps = new List<Map>();
-
         public Tile LastCollidedWith { get; set; }
+        public bool AteGhost { get; set; }
+        public bool PacDead { get; set; }
         public GameState GameState { get; set; }
         public int CurrentLevel { get; set; }
         public Tile Pacman { get; set; }
@@ -99,9 +100,11 @@ namespace PacManNamespace
             Tile GhostTile = Maps[0].CollisionWithGhost();
             if (GhostTile != null)
             {
+                AteGhost = true;
 
                 if (GhostTile.Vulnerable)
                 {
+                    AteGhost = true;
                     ((Pacman)Pacman).Score += GhostTile.Value;
                     GhostTile.Position.col = GhostTile.StartPosition.col;
                     GhostTile.Position.row = GhostTile.StartPosition.row;
@@ -109,9 +112,11 @@ namespace PacManNamespace
                 }
                 else
                 {
+                    PacDead = true;
                     ((Pacman)Pacman).Lives -= 1;
                     if (((Pacman)Pacman).Lives == 0)
                     {
+                        PacDead = true;
                         GameState = GameState.Lost;
                     }
                     else
@@ -175,6 +180,8 @@ namespace PacManNamespace
                 CurrentMap.Serialize();
             }
         }
+
+       
 
        
     }

@@ -17,9 +17,11 @@
                 <Canvas.Background>
                     <ImageBrush ImageSource="/Assets/background.png"/>
                 </Canvas.Background>
+                <TextBlock x:Name="CountDownText" Text="3" Visibility="Collapsed" Foreground="Yellow" FontSize="50" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="266" Canvas.Left="278"/>
                 <TextBlock x:Name="pressEnter" Text="Press Enter to begin" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="153" Canvas.Top="293" />
                 <TextBlock x:Name="GameOver" Text="Game Over" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="221" />
                 <TextBlock x:Name="Won" Text="Won" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/KOMIKAX_.ttf#Komika Axis" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="257" />
+
             </Canvas>
         </StackPanel>
         <Grid HorizontalAlignment="Center">

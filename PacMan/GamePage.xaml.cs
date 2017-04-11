@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using PacManNamespace.Models;
 using Windows.System.Threading;
 using Windows.UI;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace PacManNamespace
@@ -37,6 +39,7 @@ namespace PacManNamespace
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
+        public bool PlayingSound { get; set; }
         public const String pathToPng= "ms-appx:///Assets/Images/png/";
         public GamePage()
         {
@@ -45,7 +48,6 @@ namespace PacManNamespace
             controller.Init();
  
         }
-
         
         public void Init()
         {
@@ -84,22 +86,39 @@ namespace PacManNamespace
             
         }
 
-        private void dispatcherTimer_Tick(object sender, object e)
+        private async void dispatcherTimer_Tick(object sender, object e)
         {
 
             controller.MovePacman();
             controller.MoveGhosts();
-            
+
             if (controller.LastCollidedWith != null)
             {
                 if (controller.LastCollidedWith.Type == TileType.Dot || controller.LastCollidedWith.Type == TileType.MakeVulnerable)
                 {
+                    Task.Run(() => PlaySound(SoundType.chomp));
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
+                    
                 }
 
             }
 
+            if (controller.AteGhost)
+            {
+                Task.Run(() => PlaySound(SoundType.eatghost)) ;
+                controller.AteGhost = false;
+            }
+            if (controller.PacDead)
+            {
+                Task.Run(() => PlaySound(SoundType.death));
+                controller.PacDead = false;
+            }
+            if (controller.GameState == GameState.Lost)
+            {
+                Task.Run(() => PlaySound(SoundType.death));
+                controller.PacDead = false;
+            }
             Score.Text = ((Pacman)controller.Pacman).Score.ToString();
             LivesNr.Text = ((Pacman)controller.Pacman).Lives.ToString();
 
@@ -111,7 +130,7 @@ namespace PacManNamespace
             }
 
 
-            if (controller.GameState == GameState.Lost )
+            if (controller.GameState == GameState.Lost)
             {
                 dispatcherTimer.Stop();
                 this.GameOver.Visibility = Visibility.Visible;
@@ -131,13 +150,37 @@ namespace PacManNamespace
 
         }
 
+
+        public async void PlaySound(SoundType type)
+        {
+          Task.Run(async () =>
+                {
+
+                    await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+                    async () =>
+                        {
+                            MediaElement mysong = new MediaElement();
+                            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+                            Windows.Storage.StorageFile file = await folder.GetFileAsync(type.ToString() + ".wav");
+                            var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+                            mysong.SetSource(stream, file.ContentType);
+                            mysong.Play();
+                            
+                        });
+                    
+                });
+
+         }
+
+    
+
         public void PlaceOnCanvas(Position P, UIElement element)
         {
             Canvas.SetLeft(element, P.col * 20);
             Canvas.SetTop(element, P.row * 20);
         }
-        
-        private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+
+        private async void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 
             Direction dir = Direction.None;
@@ -146,17 +189,39 @@ namespace PacManNamespace
                 if (controller.GameState == GameState.None)
                 {
                     this.Init();
+                    this.CountDownText.Visibility = Visibility.Visible;
+                    this.pressEnter.Visibility = Visibility.Collapsed;
+
+                    Task t = Task.Run(async () =>
+                   {
+                       Task.Run(() => PlaySound(SoundType.beginning));
+                        
+                       for (int i = 3; i > 0; i--)
+                       {
+
+                           await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+                           () =>
+                           {
+                               this.CountDownText.Text = i.ToString();
+
+                            });
+                           Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+                       }
+                   });
+                   await t;
+                   this.CountDownText.Visibility = Visibility.Collapsed;
 
                 }
+
                 if (controller.GameState == GameState.Pause || controller.GameState == GameState.None)
                 {
                     dispatcherTimer.Start();
                     this.pressEnter.Visibility = Visibility.Collapsed;
                     controller.GameState = GameState.Playing;
                 }
-                
+
             }
-            
+
             if (args.VirtualKey == Windows.System.VirtualKey.Up) dir = Direction.Up;
             if (args.VirtualKey == Windows.System.VirtualKey.Down) dir = Direction.Down;
             if (args.VirtualKey == Windows.System.VirtualKey.Left) dir = Direction.Left;
@@ -168,14 +233,12 @@ namespace PacManNamespace
 
             if (dir != Direction.None)
             {
-                
+
                 controller.Pacman.PreviousDirection = controller.Pacman.Direction;
                 controller.Pacman.PreviousDirection = dir;
 
             }
         }
-
-
 
     }
     
