@@ -138,7 +138,7 @@ namespace PacManNamespace.Models
                         tempTile = new Tile();
                         tempTile.Type = TileType.MakeVulnerable;
                         tempTile.CurrentImageUrl = "makevuln.png";
-                        tempTile.Value = 1;
+                        tempTile.Value = 10;
                         Dots.Add(tempTile);
 
                     }
@@ -146,21 +146,25 @@ namespace PacManNamespace.Models
                     {
                         tempTile = new Ghost(this, TileType.Blinky);
                         Characters[ObjectType.Blinky] = tempTile;
+                        tempTile.Value = 5;
                     }
                     if (col == 'I')
                     {
                         tempTile = new Ghost(this, TileType.Inky);
                         Characters[ObjectType.Inky] = tempTile;
+                        tempTile.Value = 5;
                     }
                     if (col == 'P')
                     {
                         tempTile = new Ghost(this, TileType.Pinky);
                         Characters[ObjectType.Pinky] = tempTile;
+                        tempTile.Value = 5;
                     }
                     if (col == 'C')
                     {
                         tempTile = new Ghost(this, TileType.Clyde);
                         Characters[ObjectType.Clyde] = tempTile;
+                        tempTile.Value = 5;
                     }
                     if (col == 'M')
                     {

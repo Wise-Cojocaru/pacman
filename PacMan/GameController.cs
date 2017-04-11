@@ -63,6 +63,7 @@ namespace PacManNamespace
                     if(Maps[0].Dots.Count == 0)
                     {
                         GameState = GameState.Won;
+                        ((Pacman)Pacman).Score += 100;
                     }
                     else
                     {
