@@ -238,9 +238,9 @@ namespace PacManNamespace.Models
                     {
                         Line += "C";
                     }
+                    Line += ",";
 
                 }
-                Line += "\n";
                 str += Line;
                 Line = "";
 
@@ -249,7 +249,6 @@ namespace PacManNamespace.Models
             foreach(var KeyValuePair in Characters)
             {
                 str += KeyValuePair.Value.Serialize();
-                str += "\n";
             }
 
             return str;

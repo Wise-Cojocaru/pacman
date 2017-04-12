@@ -16,5 +16,6 @@ namespace PacManNamespace.Models
             this.Position = new Position() { col = j, row = i};
             this.Value = 5;
         }
+
     }
 }

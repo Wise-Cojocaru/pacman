@@ -7,6 +7,8 @@ using PacManNamespace.Models;
 using System.IO;
 using PacManNamespace.Models.Ghosts;
 using System.Threading;
+using Windows.Storage.Pickers;
+using Windows.Storage;
 
 namespace PacManNamespace
 {
@@ -177,13 +179,16 @@ namespace PacManNamespace
         {
 
         }
-        public void Save(string path)
+        public void Save()
         {
             Map CurrentMap = Maps[0];
+            string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "Assets/gamesave.csv");
 
             using (StreamWriter stream = new FileInfo(path).AppendText())
             {
-                CurrentMap.Serialize();
+
+               stream.Write(CurrentMap.Serialize());
+                
             }
         }
 

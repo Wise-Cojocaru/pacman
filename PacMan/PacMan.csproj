@@ -139,6 +139,7 @@
     </Content>
     <Content Include="Assets\Fonts\PAC-FONT.TTF" />
     <Content Include="Assets\Fonts\SUBWT___.ttf" />
+    <Content Include="Assets\gamesave.csv" />
     <None Include="Diagram.cd" />
     <None Include="project.json" />
   </ItemGroup>

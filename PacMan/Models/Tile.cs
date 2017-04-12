@@ -95,7 +95,10 @@ namespace PacManNamespace.Models
 
         public virtual string Serialize()
         {
-            throw new NotImplementedException();
+            string str = "";
+            str += Position.col + ",";
+            str += Position.row + ",";
+            return str;
         }
 
         public virtual void Deserialize()

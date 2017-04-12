@@ -238,8 +238,13 @@ namespace PacManNamespace
                 else
                     CheatText.Visibility = Visibility.Collapsed;
             }
-                
-                
+
+            //if (args.VirtualKey == Windows.System.VirtualKey.K)
+            //{
+            //    Task.Run(() => controller.Save());
+            //    controller.GameState = GameState.Pause;
+            //}
+
             if (dir != Direction.None)
             {
 
