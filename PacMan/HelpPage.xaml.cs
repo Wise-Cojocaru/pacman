@@ -23,6 +23,8 @@ namespace PacMan
     /// </summary>
     public sealed partial class HelpPage : Page
     {
+        private string colorString;
+
         public HelpPage()
         {
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
@@ -32,7 +34,18 @@ namespace PacMan
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 
-            if (args.VirtualKey == Windows.System.VirtualKey.Escape) this.Frame.Navigate(typeof(MainPage));
+            if (args.VirtualKey == Windows.System.VirtualKey.Escape) this.Frame.Navigate(typeof(MainPage), colorString);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                colorString = e.Parameter.ToString();
+            }
+
+
         }
     }
 }

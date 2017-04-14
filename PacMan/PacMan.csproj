@@ -116,6 +116,9 @@
     <Content Include="Assets\Images\Customize Button.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\Customize Screen.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\Help Button.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -149,6 +152,9 @@
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomizePage.xaml.cs">
+      <DependentUpon>CustomizePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameController.cs" />
     <Compile Include="GamePage.xaml.cs">
@@ -273,6 +279,10 @@
     <Page Include="AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomizePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>

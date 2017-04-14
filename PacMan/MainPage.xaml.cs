@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,6 +26,9 @@ namespace PacManNamespace
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        private string colorString = String.Format("{0},{1},{2},{3}", 255, 255, 241, 0);
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -32,21 +36,32 @@ namespace PacManNamespace
 
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(AboutPage));
+            this.Frame.Navigate(typeof(AboutPage), colorString);
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(HelpPage));
+            this.Frame.Navigate(typeof(HelpPage), colorString);
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(GamePage));
+            this.Frame.Navigate(typeof(GamePage), colorString);
         }
 
         private void btnCustomize_Click(object sender, RoutedEventArgs e)
         {
+            this.Frame.Navigate(typeof(CustomizePage), colorString);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                colorString = e.Parameter.ToString();
+            }
+                
 
         }
 

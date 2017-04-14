@@ -31,6 +31,8 @@ namespace PacManNamespace
     {
         GameController controller = new GameController();
 
+        BitmapIcon bmi = new BitmapIcon();
+
         DispatcherTimer dispatcherTimer;
 
         public Dictionary<ObjectType, Image> UICharacters = new Dictionary<ObjectType, Image>();
@@ -39,12 +41,17 @@ namespace PacManNamespace
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
+        private Color color;
+        string colorString;
+        string clrString;
+
         public bool PlayingSound { get; set; }
         public const String pathToPng= "ms-appx:///Assets/Images/png/";
         public GamePage()
         {
-            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+           
             this.InitializeComponent();
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             controller.Init();
  
         }
@@ -77,6 +84,18 @@ namespace PacManNamespace
                 this.Canvas.Children.Add(Object);
                 PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, Object);
                 UICharacters[Type] = Object;
+
+                if (Type == ObjectType.Pacman)
+                {
+
+                    bmi.UriSource = new Uri(pathToPng + controller.Maps[0].Characters[Type].CurrentImageUrl);
+                    bmi.Height = Object.Height;
+                    bmi.Width = Object.Width;
+                    bmi.Foreground = new SolidColorBrush(color);
+                    PlaceOnCanvas(controller.Pacman.Position, bmi);
+                    this.Canvas.Children.Add(bmi);
+                }
+                
             }
             
 
@@ -85,6 +104,8 @@ namespace PacManNamespace
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
             
         }
+
+
 
         private async void dispatcherTimer_Tick(object sender, object e)
         {
@@ -145,6 +166,7 @@ namespace PacManNamespace
                 dispatcherTimer.Stop();
                 this.Won.Visibility = Visibility.Visible;
             }
+            UpdateIcon();
 
 
 
@@ -239,11 +261,11 @@ namespace PacManNamespace
                     CheatText.Visibility = Visibility.Collapsed;
             }
 
-            //if (args.VirtualKey == Windows.System.VirtualKey.K)
-            //{
-            //    Task.Run(() => controller.Save());
-            //    controller.GameState = GameState.Pause;
-            //}
+            if (args.VirtualKey == Windows.System.VirtualKey.K)
+            {
+                Task.Run(() => controller.Save());
+                controller.GameState = GameState.Pause;
+            }
 
             if (dir != Direction.None)
             {
@@ -252,6 +274,31 @@ namespace PacManNamespace
                 controller.Pacman.PreviousDirection = dir;
 
             }
+        }
+
+        private void UpdateIcon()
+        {
+            bmi.UriSource = new Uri(pathToPng + controller.Pacman.Images[controller.Pacman.Direction]);
+            PlaceOnCanvas(controller.Pacman.Position, bmi);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null)
+            {
+                colorString = e.Parameter.ToString();
+                string[] colorArray = colorString.Split(',');
+                try
+                {
+                    color = Color.FromArgb(Convert.ToByte(colorArray[0]), Convert.ToByte(colorArray[1]), Convert.ToByte(colorArray[2]), Convert.ToByte(colorArray[3]));
+                }catch(FormatException ex)
+                {
+                    color = Color.FromArgb(255, 255, 241, 0);
+                }
+                    
+            }
+
         }
 
     }

@@ -256,7 +256,14 @@ namespace PacManNamespace.Models
 
         public void Deserialize()
         {
-            throw new NotImplementedException();
+
+            for (int row = 0; row < 31; row++)
+            {
+                for(int col = 0; col < 28; col++)
+                {
+
+                }
+            }
         }
     }
 }

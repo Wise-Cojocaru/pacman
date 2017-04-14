@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="PacMan.CustomizePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PacMan"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+        
+        <Image Source="Assets/Images/Customize Screen.jpg"/>
+        <Image x:Name="imgPacman" Source="Assets/Images/png/pacman-R.png" Margin="758,456,204,212" Height="100"/>
+        <BitmapIcon x:Name="iconPacman" UriSource="Assets/Images/png/pacman-r.png" Foreground="Yellow" Margin="758,456,204,212" Height="100"/>
+        <TextBlock x:Name="txtRed" Text="Red" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Right" Foreground="Red" FontSize="40" Margin="82,380,848,348"/>
+        <TextBlock x:Name="txtRedVal" Text="0" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Center" Foreground="Red" FontSize="40" Margin="490,380,440,348"/>
+        <TextBlock x:Name="txtGreen" Text="Green" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Right" Foreground="Green" FontSize="40" Margin="52,448,848,272"/>
+        <TextBlock x:Name="txtGreenVal" Text="0" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Center" Foreground="Green" FontSize="40" Margin="474,448,426,272"/>
+        <TextBlock x:Name="txtBlue" Text="Blue" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Right" Foreground="Blue" FontSize="40" Margin="48,516,850,204"/>
+        <TextBlock x:Name="txtBlueVal" Text="0" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" TextAlignment="Center" Foreground="Blue" FontSize="40" Margin="474,516,424,204"/>
+        <TextBlock x:Name="txtPreview" Text="PREVIEW" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" Foreground="White" FontSize="50" Margin="594,345,46,315" TextAlignment="Center"/>
+        <Slider x:Name="redSlider" Width="300" Margin="184,380,540,300" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="255" Background="Red"/>
+        <Slider x:Name="greenSlider" Width="300" Margin="184,450,540,250" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="255" Background="Green"/>
+        <Slider x:Name="blueSlider" Width="300" Margin="184,520,540,180" ValueChanged="Slider_ValueChanged" Minimum="0" Maximum="255" Background="Blue"/>
+
+
+    </Grid>
+
+</Page>

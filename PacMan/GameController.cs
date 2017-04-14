@@ -179,17 +179,23 @@ namespace PacManNamespace
         {
 
         }
-        public void Save()
+        public async void Save()
         {
             Map CurrentMap = Maps[0];
             string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "Assets/gamesave.csv");
-
-            using (StreamWriter stream = new FileInfo(path).AppendText())
+            try
             {
+                using (StreamWriter stream = new FileInfo(path).AppendText())
+                {
 
-               stream.Write(CurrentMap.Serialize());
+                    stream.Write(CurrentMap.Serialize());
+
+                }
+            }catch(UnauthorizedAccessException e)
+            {
                 
             }
+            
         }
 
        
