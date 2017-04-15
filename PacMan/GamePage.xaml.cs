@@ -20,6 +20,7 @@ using Windows.System.Threading;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
+using Windows.Storage.Streams;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace PacManNamespace
@@ -43,7 +44,6 @@ namespace PacManNamespace
 
         private Color color;
         string colorString;
-        string clrString;
 
         public bool PlayingSound { get; set; }
         public const String pathToPng= "ms-appx:///Assets/Images/png/";
@@ -88,7 +88,7 @@ namespace PacManNamespace
                 if (Type == ObjectType.Pacman)
                 {
 
-                    bmi.UriSource = new Uri(pathToPng + controller.Maps[0].Characters[Type].CurrentImageUrl);
+                    bmi.UriSource = new Uri(pathToPng + "pacman-L.png");
                     bmi.Height = Object.Height;
                     bmi.Width = Object.Width;
                     bmi.Foreground = new SolidColorBrush(color);
@@ -111,6 +111,7 @@ namespace PacManNamespace
         {
 
             controller.MovePacman();
+            UpdateIcon();
             controller.MoveGhosts();
 
             if (controller.LastCollidedWith != null)
@@ -120,6 +121,7 @@ namespace PacManNamespace
                     Task.Run(() => PlaySound(SoundType.chomp));
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
+                    
                     
                 }
 
@@ -166,8 +168,6 @@ namespace PacManNamespace
                 dispatcherTimer.Stop();
                 this.Won.Visibility = Visibility.Visible;
             }
-            UpdateIcon();
-
 
 
         }
@@ -263,7 +263,7 @@ namespace PacManNamespace
 
             if (args.VirtualKey == Windows.System.VirtualKey.K)
             {
-                Task.Run(() => controller.Save());
+                Task.Run(() => controller.Save(pathToPng + "Assets/gamesave.csv"));
                 controller.GameState = GameState.Pause;
             }
 
@@ -278,7 +278,8 @@ namespace PacManNamespace
 
         private void UpdateIcon()
         {
-            bmi.UriSource = new Uri(pathToPng + controller.Pacman.Images[controller.Pacman.Direction]);
+
+            bmi.UriSource = new Uri(pathToPng + controller.Pacman.CurrentImageUrl);
             PlaceOnCanvas(controller.Pacman.Position, bmi);
         }
 

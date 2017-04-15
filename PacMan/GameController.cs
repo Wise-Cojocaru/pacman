@@ -54,6 +54,7 @@ namespace PacManNamespace
                 
                 case TileType.Wall:
 
+                    Pacman.Animate();
                     Pacman.Position.row = Math.Round(Pacman.Position.row);
                     Pacman.Position.col = Math.Round(Pacman.Position.col);
                     break;
@@ -179,10 +180,9 @@ namespace PacManNamespace
         {
 
         }
-        public async void Save()
+        public async void Save(string path)
         {
             Map CurrentMap = Maps[0];
-            string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "Assets/gamesave.csv");
             try
             {
                 using (StreamWriter stream = new FileInfo(path).AppendText())
