@@ -180,26 +180,5 @@ namespace PacManNamespace
         {
 
         }
-        public async void Save(string path)
-        {
-            Map CurrentMap = Maps[0];
-            try
-            {
-                using (StreamWriter stream = new FileInfo(path).AppendText())
-                {
-
-                    stream.Write(CurrentMap.Serialize());
-
-                }
-            }catch(UnauthorizedAccessException e)
-            {
-                
-            }
-            
-        }
-
-       
-
-       
     }
 }

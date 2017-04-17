@@ -10,7 +10,7 @@ using PacManNamespace.Models.Ghosts;
 namespace PacManNamespace.Models
 {
     
-    public class Map : Serialization
+    public class Map
     {
         public Tile[,] Maze { get; set; }
 
@@ -193,78 +193,72 @@ namespace PacManNamespace.Models
         public string Serialize()
         {
             string str = "";
-            for (int i = 0; i < 31; i++)
+
+            foreach (Tile dot in Dots)
             {
-                string Line = "";
-
-                for(int j = 0; j < 28; j++)
-                {
-                    if (Maze[i,j].Type == TileType.Wall)
-                    {
-                        Line += "W";
-                    }
-                    if (Maze[i, j].Type == TileType.Empty)
-                    {
-                        Line += "E";
-                    }
-                    if (Maze[i, j].Type == TileType.Dot)
-                    {
-                        Line += "D";
-
-                    }
-                    if (Maze[i, j].Type == TileType.MakeVulnerable)
-                    {
-                        Line += "V";
-
-                    }
-                    if (Maze[i, j].Type == TileType.Blinky)
-                    {
-                        Line += "B";
-                    }
-                    if (Maze[i, j].Type == TileType.Inky)
-                    {
-                        Line += "I";
-                    }
-                    if (Maze[i, j].Type == TileType.Pinky)
-                    {
-                        Line += "P";
-                    }
-                    if (Maze[i, j].Type == TileType.Pacman)
-                    {
-                        Line += "M";
-                    }
-
-                    if (Maze[i, j].Type == TileType.Clyde)
-                    {
-                        Line += "C";
-                    }
-                    Line += ",";
-
-                }
-                str += Line;
-                Line = "";
-
+                str += string.Format("dot {0} {1}", dot.Position.row, dot.Position.col);
+                str += ",";
             }
 
             foreach(var KeyValuePair in Characters)
             {
+                str += KeyValuePair.Key + " ";
                 str += KeyValuePair.Value.Serialize();
             }
 
             return str;
         }
 
-        public void Deserialize()
+        public void DeSerialize()
         {
+            string path = "";
+            Dots.Clear();
+            FileStream stream = File.OpenRead(path);
+            string data = File.ReadAllText(path);
+            string[] dataSplit = data.Split(',');
 
-            for (int row = 0; row < 31; row++)
+            for (int i = 0; i < dataSplit.Length; i++)
             {
-                for(int col = 0; col < 28; col++)
-                {
+                string[] dataInfo = dataSplit[i].Split(' ');
 
+                if (dataInfo[0] == "dot")
+                {
+                    var tempTile = new Tile();
+                    tempTile.Type = TileType.Dot;
+                    tempTile.Position.row = Convert.ToInt32(dataInfo[1]);
+                    tempTile.Position.col = Convert.ToInt32(dataInfo[2]);
+                    Dots.Add(tempTile);
+                }
+
+                else if (dataInfo[0] == "ObjectType.Pacman")
+                {
+                    Characters[ObjectType.Pacman].Position.row = Convert.ToInt32(dataInfo[1]);
+                    Characters[ObjectType.Pacman].Position.col = Convert.ToInt32(dataInfo[2]);
+
+                }
+                else if (dataInfo[0] == "ObjectType.Inky")
+                {
+                    Characters[ObjectType.Inky].Position.row = Convert.ToInt32(dataInfo[1]);
+                    Characters[ObjectType.Inky].Position.col = Convert.ToInt32(dataInfo[2]);
+                }
+                else if (dataInfo[0] == "ObjectType.Pinky")
+                {
+                    Characters[ObjectType.Pinky].Position.row = Convert.ToInt32(dataInfo[1]);
+                    Characters[ObjectType.Pinky].Position.col = Convert.ToInt32(dataInfo[2]);
+                }
+                else if (dataInfo[0] == "ObjectType.Blinky")
+                {
+                    Characters[ObjectType.Blinky].Position.row = Convert.ToInt32(dataInfo[1]);
+                    Characters[ObjectType.Blinky].Position.col = Convert.ToInt32(dataInfo[2]);
+                }
+                else if (dataInfo[0] == "ObjectType.Clyde")
+                {
+                    Characters[ObjectType.Clyde].Position.row = Convert.ToInt32(dataInfo[1]);
+                    Characters[ObjectType.Clyde].Position.col = Convert.ToInt32(dataInfo[2]);
                 }
             }
         }
+
     }
 }
     
