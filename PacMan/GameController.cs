@@ -26,6 +26,7 @@ namespace PacManNamespace
     {
         public List<Map> Maps = new List<Map>();
         public Tile LastCollidedWith { get; set; }
+        public Tile LastBulletHit { get; set; }
         public bool AteGhost { get; set; }
         public bool PacDead { get; set; }
         public bool isCheating { get; set; }
@@ -137,10 +138,38 @@ namespace PacManNamespace
                     
                     
                 }
+
+
+
+               
+                
+                if (Maps[0].CollisionWithBullet())
+                {
+                    
+                    if (!isCheating)
+                        {
+                            PacDead = true;
+                            ((Pacman)Pacman).Lives -= 1;
+                            if (((Pacman)Pacman).Lives == 0)
+                            {
+                                PacDead = true;
+                                GameState = GameState.Lost;
+                            }
+                            else
+                            {
+                                GameState = GameState.Pause;
+                                Pacman.Position.col = Pacman.StartPosition.col;
+                                Pacman.Position.row = Pacman.StartPosition.row;
+                                Pacman.Direction = Direction.Left;
+                            }
+                        }
+
+
+                    }
+                }
+
+
             }
-            
-            
-        }
 
         private Task<int> MakeGhostNormal()
         {

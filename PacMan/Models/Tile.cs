@@ -9,7 +9,7 @@ namespace PacManNamespace.Models
 {
     public enum Direction { Left, Up, Right, Down, None}
 
-    public enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable}
+    public enum TileType { Empty, Wall, Dot, Blinky, Clyde, Inky, Pinky, Pacman, MakeVulnerable, Bullet}
 
     
     public class Tile : Serialization

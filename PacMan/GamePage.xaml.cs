@@ -40,6 +40,8 @@ namespace PacManNamespace
 
         public Dictionary<Tile, UIElement> UIDots = new Dictionary<Tile, UIElement>();
 
+        public Dictionary<Tile, UIElement> Bullets = new Dictionary<Tile, UIElement>();
+
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
         private Color color;
@@ -71,7 +73,6 @@ namespace PacManNamespace
                 UIDots[dot] = Dot;
                 this.Canvas.Children.Add(UIDots[dot]);
                 PlaceOnCanvas(dot.Position, UIDots[dot]);
-
 
             }
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -121,15 +122,19 @@ namespace PacManNamespace
                     Task.Run(() => PlaySound(SoundType.chomp));
                     Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
                     UIDots[controller.LastCollidedWith] = null;
-                    
-                    
                 }
 
             }
 
+            if (controller.Maps[controller.CurrentLevel].CollidedWithPac)
+            {
+                Task.Run(() => PlaySound(SoundType.death));
+                controller.Maps[controller.CurrentLevel].CollidedWithPac = false;
+            }
+
             if (controller.AteGhost)
             {
-                Task.Run(() => PlaySound(SoundType.eatghost)) ;
+                Task.Run(() => PlaySound(SoundType.eatghost));
                 controller.AteGhost = false;
             }
             if (controller.PacDead && !controller.isCheating)
@@ -152,6 +157,33 @@ namespace PacManNamespace
                 PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, UICharacters[Type]);
             }
 
+            
+            foreach (Tile b in controller.Maps[controller.CurrentLevel].Bullets)
+            {
+                if (!Bullets.ContainsKey(b))
+                {
+                        
+                        Image Bullet = new Image();
+                        Bullet.Name = Bullet.ToString();
+                        Bullet.Height = 20;
+                        Bullet.Width = 20;
+                        Bullet.Source = new BitmapImage(new Uri(pathToPng + "bullet-R.png"));
+                        Bullets[b] = Bullet;
+                        this.Canvas.Children.Add(Bullets[b]);
+               }
+
+                if(!b.isMoving)
+                {
+                    Canvas.Children.Remove(Bullets[b]);
+
+                }
+                PlaceOnCanvas(b.Position, Bullets[b]);
+
+                
+
+            }
+
+   
 
             if (controller.GameState == GameState.Lost)
             {
