@@ -21,6 +21,7 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using Windows.Storage.Streams;
+using PacMan;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace PacManNamespace
@@ -48,7 +49,8 @@ namespace PacManNamespace
         string colorString;
 
         public bool PlayingSound { get; set; }
-        public const String pathToPng= "ms-appx:///Assets/Images/png/";
+        public const string pathToPng = "ms-appx:///Assets/Images/png/";
+
         public GamePage()
         {
            
@@ -293,11 +295,14 @@ namespace PacManNamespace
                     CheatText.Visibility = Visibility.Collapsed;
             }
 
-            if (args.VirtualKey == Windows.System.VirtualKey.K)
-            {
-                Task.Run(() => controller.Save(pathToPng + "Assets/gamesave.csv"));
-                controller.GameState = GameState.Pause;
-            }
+            //if (args.VirtualKey == Windows.System.VirtualKey.K)
+            //{
+            //    dispatcherTimer.Stop();
+            //    controller.GameState = GameState.Pause;
+            //    Map currentMap = controller.Maps[0];
+            //    this.Frame.Navigate(typeof(LoadSavePage), currentMap.Serialize());
+                
+            //}
 
             if (dir != Direction.None)
             {
@@ -314,6 +319,7 @@ namespace PacManNamespace
             bmi.UriSource = new Uri(pathToPng + controller.Pacman.CurrentImageUrl);
             PlaceOnCanvas(controller.Pacman.Position, bmi);
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
