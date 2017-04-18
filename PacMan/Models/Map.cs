@@ -19,7 +19,7 @@ namespace PacManNamespace.Models
         public List<Tile> Bullets = new List<Tile>();
         public int CurrentLevel { get; set;}
 
-        public bool CollidedWithPac { get; set; }
+        public bool CollidedWithPac = false;
 
         public List<Tile> Dots = new List<Tile>();
         public Map()
@@ -56,21 +56,19 @@ namespace PacManNamespace.Models
 
         }
 
-        public bool CollisionWithBullet()
-        {
-            return this.CollidedWithPac;
-        }
+
         public bool CollisionWithPacman(Bullet b)
         {
-            int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
-            int pacCol = (int)(Characters[ObjectType.Pacman].Position.col);
+            double pacRow = Math.Round(Characters[ObjectType.Pacman].Position.row);
+            double pacCol = Math.Round(Characters[ObjectType.Pacman].Position.col);
             
                 
-            if ((int)(b.Position.col) == pacCol && (int)(b.Position.row) == pacRow)
+            if (Math.Round(b.Position.col) == pacCol && Math.Round(b.Position.row) == pacRow)
             {
+                CollidedWithPac = true;
                 return true;
             }
-
+            CollidedWithPac = false;
             return false;
         }
         public Tile Collision(Direction direction, Tile tile)

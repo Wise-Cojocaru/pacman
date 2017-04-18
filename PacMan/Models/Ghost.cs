@@ -120,7 +120,7 @@ namespace PacManNamespace.Models.Ghosts
             {
                 this.Direction = temp;
             }
-            bool checkifToShoot = false;
+            
 
 
 
@@ -137,17 +137,14 @@ namespace PacManNamespace.Models.Ghosts
                     b.isMoving = true;
                     this.BulletShot = true;
                     Tile tile = map.Collision(b.Direction, b);
-                    while (tile.Type != TileType.Wall &&  !map.CollisionWithPacman(b))
+                    while (tile.Type != TileType.Wall && !map.CollisionWithPacman(b))
                     {
                         b.Move();
                         Task.Delay(TimeSpan.FromMilliseconds(5)).Wait();
                         tile = map.Collision(b.Direction, b);
                     }
-                    if (map.CollisionWithPacman(b))
+                    if(map.CollisionWithPacman(b))
                         map.CollidedWithPac = true;
-                    else
-                        map.CollidedWithPac = false;
-
                     b.isMoving = false;
                     this.BulletShot = false;
 

@@ -47,6 +47,7 @@ namespace PacManNamespace
         public void MovePacman()
         {
             
+
             Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
             LastCollidedWith = tempTile;
 
@@ -135,41 +136,36 @@ namespace PacManNamespace
                             Pacman.Direction = Direction.Left;
                         }
                     }
-                    
-                    
                 }
+            }
 
-
-
-               
-                
-                if (Maps[0].CollisionWithBullet())
+            foreach (Bullet b in Maps[0].Bullets)
+            {
+                if (Maps[0].CollisionWithPacman(b))
                 {
-                    
                     if (!isCheating)
+                    {
+                        PacDead = true;
+                        ((Pacman)Pacman).Lives -= 1;
+                        if (((Pacman)Pacman).Lives == 0)
                         {
                             PacDead = true;
-                            ((Pacman)Pacman).Lives -= 1;
-                            if (((Pacman)Pacman).Lives == 0)
-                            {
-                                PacDead = true;
-                                GameState = GameState.Lost;
-                            }
-                            else
-                            {
-                                GameState = GameState.Pause;
-                                Pacman.Position.col = Pacman.StartPosition.col;
-                                Pacman.Position.row = Pacman.StartPosition.row;
-                                Pacman.Direction = Direction.Left;
-                            }
+                            GameState = GameState.Lost;
                         }
-
-
+                        else
+                        {
+                            GameState = GameState.Pause;
+                            Pacman.Position.col = Pacman.StartPosition.col;
+                            Pacman.Position.row = Pacman.StartPosition.row;
+                            Pacman.Direction = Direction.Left;
+                        }
                     }
+
                 }
 
-
             }
+
+        }
 
         private Task<int> MakeGhostNormal()
         {
