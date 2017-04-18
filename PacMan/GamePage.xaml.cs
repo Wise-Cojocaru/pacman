@@ -263,14 +263,14 @@ namespace PacManNamespace
                     CheatText.Visibility = Visibility.Collapsed;
             }
 
-            //if (args.VirtualKey == Windows.System.VirtualKey.K)
-            //{
-            //    dispatcherTimer.Stop();
-            //    controller.GameState = GameState.Pause;
-            //    Map currentMap = controller.Maps[0];
-            //    this.Frame.Navigate(typeof(LoadSavePage), currentMap.Serialize());
-                
-            //}
+            if (args.VirtualKey == Windows.System.VirtualKey.K)
+            {
+                dispatcherTimer.Stop();
+                controller.GameState = GameState.Pause;
+                Map currentMap = controller.Maps[0];
+                this.Frame.Navigate(typeof(LoadSavePage), currentMap.Serialize());
+
+            }
 
             if (dir != Direction.None)
             {
