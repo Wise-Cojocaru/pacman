@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,6 +29,7 @@ namespace PacMan
 
         string mapSerializedStr = "";
         const string pathToSaves = "ms-appx///Assets/Saves/";
+        const string pathToData = "ms-appdata///local/";
 
         public LoadSavePage()
         {
@@ -56,11 +58,21 @@ namespace PacMan
             mapSerializedStr = e.Parameter.ToString();
         }
 
-        private void Save()
+        private async void Save()
         {
-            string filePath = "Assets/Saves/" + txtsaveFile.Text + ".csv";
-            
-            File.WriteAllText(filePath, mapSerializedStr);
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            StorageFile userCreatedFile = await storageFolder.CreateFileAsync(txtsaveFile.Text + ".csv", CreationCollisionOption.ReplaceExisting);
+            Stream stream = await userCreatedFile.OpenStreamForWriteAsync();
+            string path = storageFolder.Path;
+            string fPath = userCreatedFile.Path;
+            txtChooseFileName.Text = path;
+            txtChooseFileName.TextWrapping = TextWrapping.Wrap;
+            txtChooseFileName.FontSize = 6;
+            using (StreamWriter sr = new StreamWriter(stream))
+            {
+                sr.Write(mapSerializedStr);
+            }
+            stream.Dispose();
 
         }
 

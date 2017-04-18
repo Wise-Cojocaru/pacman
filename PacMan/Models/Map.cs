@@ -64,8 +64,8 @@ namespace PacManNamespace.Models
         {
             int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
             int pacCol = (int)(Characters[ObjectType.Pacman].Position.col);
-            
-                
+
+
             if ((int)(b.Position.col) == pacCol && (int)(b.Position.row) == pacRow)
             {
                 return true;
