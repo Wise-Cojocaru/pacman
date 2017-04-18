@@ -12,6 +12,8 @@ namespace PacManNamespace.Models.Ghosts
         
 
         public List<Direction> DirectionsToChoose = new List<Direction>();
+        public bool BulletShotAndHitPacman { get; set; }
+        public bool BulletShot { get; set; }
         public Map map { get; set; }
         public Ghost(Map map, TileType type)
         {
@@ -117,6 +119,39 @@ namespace PacManNamespace.Models.Ghosts
             if(DirectionsToChoose.Count == 3)
             {
                 this.Direction = temp;
+            }
+            bool checkifToShoot = false;
+
+
+
+            if ((Math.Abs(colDiff) <= 0.1 || Math.Abs(rowDiff) <= 0.1) && !BulletShot)
+            {
+                Bullet b = new Bullet();
+                map.Bullets.Add(b);
+                b.Position.row = Math.Round( this.Position.row);
+                b.Position.col = Math.Round(this.Position.col);
+                b.Direction = this.Direction;
+
+                Task t = Task.Run(() =>
+                {
+                    b.isMoving = true;
+                    this.BulletShot = true;
+                    Tile tile = map.Collision(b.Direction, b);
+                    while (tile.Type != TileType.Wall &&  !map.CollisionWithPacman(b))
+                    {
+                        b.Move();
+                        Task.Delay(TimeSpan.FromMilliseconds(5)).Wait();
+                        tile = map.Collision(b.Direction, b);
+                    }
+                    if (map.CollisionWithPacman(b))
+                        map.CollidedWithPac = true;
+                    else
+                        map.CollidedWithPac = false;
+
+                    b.isMoving = false;
+                    this.BulletShot = false;
+
+                });
             }
             DirectionsToChoose = new List<Direction>();
         }

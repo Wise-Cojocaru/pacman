@@ -16,7 +16,11 @@ namespace PacManNamespace.Models
 
         public Dictionary<ObjectType, Tile> Characters = new Dictionary<ObjectType, Tile>();
 
+        public List<Tile> Bullets = new List<Tile>();
         public int CurrentLevel { get; set;}
+
+        public bool CollidedWithPac { get; set; }
+
         public List<Tile> Dots = new List<Tile>();
         public Map()
         {
@@ -49,6 +53,25 @@ namespace PacManNamespace.Models
                 }
             }
             return null;
+
+        }
+
+        public bool CollisionWithBullet()
+        {
+            return this.CollidedWithPac;
+        }
+        public bool CollisionWithPacman(Bullet b)
+        {
+            int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
+            int pacCol = (int)(Characters[ObjectType.Pacman].Position.col);
+            
+                
+            if ((int)(b.Position.col) == pacCol && (int)(b.Position.row) == pacRow)
+            {
+                return true;
+            }
+
+            return false;
         }
         public Tile Collision(Direction direction, Tile tile)
         {
@@ -74,7 +97,6 @@ namespace PacManNamespace.Models
                 y = (int)(tile.Position.row - Characters[ObjectType.Pacman].Speed);
                 return Maze[y, x];
             }
-
             return null;
         }
         public void RemoveFromMap(Tile t)
@@ -102,7 +124,7 @@ namespace PacManNamespace.Models
             String input = File.ReadAllText("~/../Assets/maze.txt");
             int i = 0, j = 0;
             Tile tempTile = null;
-
+           
             // var dialog = new Windows.UI.Popups.MessageDialog(col.ToString());
             //await dialog.ShowAsync();
             foreach (var row in input.Split('\n'))
@@ -172,8 +194,6 @@ namespace PacManNamespace.Models
                         Characters[ObjectType.Pacman] = tempTile;
                         
                     }
-
-                    
 
                     if (tempTile != null)
                     {
