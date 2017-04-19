@@ -113,9 +113,11 @@ namespace PacManNamespace
         private async void dispatcherTimer_Tick(object sender, object e)
         {
 
-            controller.MovePacman();
-            UpdateIcon();
             controller.MoveGhosts();
+            UpdateIcon();
+            controller.MovePacman();
+            
+            
 
             if (controller.LastCollidedWith != null)
             {
@@ -126,12 +128,6 @@ namespace PacManNamespace
                     UIDots[controller.LastCollidedWith] = null;
                 }
 
-            }
-
-            if (controller.Maps[controller.CurrentLevel].CollidedWithPac)
-            {
-                Task.Run(() => PlaySound(SoundType.death));
-                controller.Maps[controller.CurrentLevel].CollidedWithPac = false;
             }
 
             if (controller.AteGhost)
@@ -180,9 +176,6 @@ namespace PacManNamespace
 
                 }
                 PlaceOnCanvas(b.Position, Bullets[b]);
-
-                
-
             }
 
    
@@ -202,7 +195,6 @@ namespace PacManNamespace
                 dispatcherTimer.Stop();
                 this.Won.Visibility = Visibility.Visible;
             }
-
 
         }
 

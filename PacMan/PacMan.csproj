@@ -182,6 +182,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bullet.cs" />
     <Compile Include="Models\Dot.cs" />
     <Compile Include="Models\Ghost.cs" />
     <Compile Include="Models\Map.cs" />
