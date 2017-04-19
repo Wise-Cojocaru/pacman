@@ -45,7 +45,10 @@ namespace PacManNamespace
 
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
-        private Color color;
+        private Color color = Color.FromArgb(255, 255, 241, 0);
+
+        private Image Dot;
+
         string colorString;
 
         public bool PlayingSound { get; set; }
@@ -56,18 +59,15 @@ namespace PacManNamespace
            
             this.InitializeComponent();
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
-            controller.Init();
- 
+
         }
         
         public void Init()
         {
-            
-
             foreach (Tile dot in controller.Maps[0].Dots)
             {
                 
-                Image Dot = new Image();
+                Dot = new Image();
                 Dot.Name = dot.ToString();
                 Dot.Height = 20;
                 Dot.Width = 20;
@@ -75,6 +75,7 @@ namespace PacManNamespace
                 UIDots[dot] = Dot;
                 this.Canvas.Children.Add(UIDots[dot]);
                 PlaceOnCanvas(dot.Position, UIDots[dot]);
+                controller.Maps[0].Maze[(int)dot.Position.row, (int)dot.Position.col].Type = TileType.Dot;
 
             }
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -124,7 +125,13 @@ namespace PacManNamespace
                 if (controller.LastCollidedWith.Type == TileType.Dot || controller.LastCollidedWith.Type == TileType.MakeVulnerable)
                 {
                     Task.Run(() => PlaySound(SoundType.chomp));
-                    Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
+                    try
+                    {
+                        Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
+                    } catch(Exception ex)
+                    {
+
+                    }
                     UIDots[controller.LastCollidedWith] = null;
                 }
 
@@ -236,6 +243,7 @@ namespace PacManNamespace
             {
                 if (controller.GameState == GameState.None)
                 {
+                    controller.Init();
                     this.Init();
                     this.CountDownText.Visibility = Visibility.Visible;
                     this.pressEnter.Visibility = Visibility.Collapsed;
@@ -265,6 +273,7 @@ namespace PacManNamespace
                 {
                     dispatcherTimer.Start();
                     this.pressEnter.Visibility = Visibility.Collapsed;
+                    this.saveControlsText.Visibility = Visibility.Visible;
                     controller.GameState = GameState.Playing;
                 }
 
@@ -287,12 +296,13 @@ namespace PacManNamespace
                     CheatText.Visibility = Visibility.Collapsed;
             }
 
-            if (args.VirtualKey == Windows.System.VirtualKey.K)
+            if (args.VirtualKey == Windows.System.VirtualKey.K && controller.GameState == GameState.Playing)
             {
                 dispatcherTimer.Stop();
                 controller.GameState = GameState.Pause;
                 Map currentMap = controller.Maps[0];
-                this.Frame.Navigate(typeof(LoadSavePage), currentMap.Serialize());
+                this.Frame.Navigate(typeof(LoadSavePage), currentMap.Serialize() + controller.Serialize() + string.Format("{0},{1},{2},{3}", Convert.ToInt32(color.A).ToString(), Convert.ToInt32(color.R).ToString(),
+                Convert.ToInt32(color.G).ToString(), Convert.ToInt32(color.B).ToString()));
 
             }
 
@@ -318,21 +328,47 @@ namespace PacManNamespace
             base.OnNavigatedTo(e);
             if (e.Parameter != null)
             {
-                colorString = e.Parameter.ToString();
-                string[] colorArray = colorString.Split(',');
-                try
+                string receivedString = e.Parameter.ToString();
+                if(receivedString.Split(',').Length == 4)
                 {
-                    color = Color.FromArgb(Convert.ToByte(colorArray[0]), Convert.ToByte(colorArray[1]), Convert.ToByte(colorArray[2]), Convert.ToByte(colorArray[3]));
-                }catch(FormatException ex)
+                    string[] colorArray = receivedString.Split(',');
+                    try
+                    {
+                        color = Color.FromArgb(Convert.ToByte(colorArray[0]), Convert.ToByte(colorArray[1]), Convert.ToByte(colorArray[2]), Convert.ToByte(colorArray[3]));
+                    }
+                    catch (FormatException ex)
+                    {
+                        color = Color.FromArgb(255, 255, 241, 0);
+                    }
+                }
+                else if(receivedString.Split(',').Length > 4)
                 {
-                    color = Color.FromArgb(255, 255, 241, 0);
+                    string[] splitData = receivedString.Split(',');
+                    int alpha = Convert.ToInt32(splitData[splitData.Length - 4]);
+                    int red = Convert.ToInt32(splitData[splitData.Length - 3]);
+                    int green = Convert.ToInt32(splitData[splitData.Length - 2]);
+                    int blue = Convert.ToInt32(splitData[splitData.Length - 1]);
+
+                    color = Color.FromArgb(Convert.ToByte(alpha), Convert.ToByte(red), Convert.ToByte(green), Convert.ToByte(blue));
+                    controller.isLoading = true;
+                    controller.Init();
+                    controller.Deserialize(receivedString, controller.Maps[0]);
+                    this.Init();
+                    controller.LastCollidedWith = null;
+
+                    controller.GameState = GameState.Playing;
+                    pressEnter.Visibility = Visibility.Collapsed;
+                    dispatcherTimer.Start();
+
                 }
                     
             }
-
+                
+                    
         }
 
     }
-    
 }
+    
+
 

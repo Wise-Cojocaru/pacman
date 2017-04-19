@@ -28,22 +28,37 @@ namespace PacMan
     {
 
         string mapSerializedStr = "";
-        const string pathToSaves = "ms-appx///Assets/Saves/";
-        const string pathToData = "ms-appdata///local/";
 
         public LoadSavePage()
         {
+
             this.InitializeComponent();
         }
 
-        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(GamePage), "");
+            if(loadFileView.SelectedItem != null)
+            {
+                string fileContents = "";
+                StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+                StorageFile selectedFile = await storageFolder.GetFileAsync(loadFileView.SelectedItem.ToString() + ".csv");
+                Stream stream = await selectedFile.OpenStreamForReadAsync();
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    fileContents = reader.ReadToEnd();
+                }
+                stream.Dispose();
+                this.Frame.Navigate(typeof(GamePage), fileContents);
+            }
+            
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            Save();
+            if(txtsaveFile.Text == "")
+                txtChooseFileName.Text = "Name must be valid";
+            else
+                Save();
         }
 
         private void txtsaveFile_GotFocus(object sender, RoutedEventArgs e)
@@ -56,6 +71,18 @@ namespace PacMan
         {
             base.OnNavigatedTo(e);
             mapSerializedStr = e.Parameter.ToString();
+            UpdateListView();
+            this.Frame.BackStack.RemoveAt(this.Frame.BackStack.Count - 1);
+        }
+
+        private async void UpdateListView()
+        {
+            loadFileView.Items.Clear();
+            StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            foreach(StorageFile file in await storageFolder.GetFilesAsync())
+            {
+                loadFileView.Items.Add(file.DisplayName);
+            }
         }
 
         private async void Save()
@@ -65,14 +92,13 @@ namespace PacMan
             Stream stream = await userCreatedFile.OpenStreamForWriteAsync();
             string path = storageFolder.Path;
             string fPath = userCreatedFile.Path;
-            txtChooseFileName.Text = path;
-            txtChooseFileName.TextWrapping = TextWrapping.Wrap;
-            txtChooseFileName.FontSize = 6;
             using (StreamWriter sr = new StreamWriter(stream))
             {
                 sr.Write(mapSerializedStr);
             }
             stream.Dispose();
+            txtChooseFileName.Text = "Game saved!";
+            UpdateListView();
 
         }
 

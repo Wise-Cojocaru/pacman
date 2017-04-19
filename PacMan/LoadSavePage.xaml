@@ -12,13 +12,14 @@
             <ImageBrush ImageSource="ASsets/Images/LoadSaveScreen.jpg" />
         </Grid.Background>
         
-        <Grid x:Name="LoadStackPanel" Margin="750,612,105,106">
+        <Grid x:Name="LoadGrid" Margin="750,612,105,106">
             <Button x:Name="btnLoad" Height="70" Click="btnLoad_Click">
                 <Image Source="Assets/Images/Load Button.jpg"/>
             </Button>
+            <ListView x:Name="loadFileView" Background="Yellow" Height="300" Margin="-4,-348,4,98" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" Foreground="Black"/>
         </Grid>
-        <Grid x:Name="SaveStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,429,624,203" Height="136" Width="250">
-            <TextBlock x:Name="txtChooseFileName" Foreground="Yellow" FontSize="30" Text="Choose File Name" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" Margin="-39,-26,-17,26"/>
+        <Grid x:Name="SaveGrid" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,429,624,203" Height="136" Width="250">
+            <TextBlock x:Name="txtChooseFileName" TextAlignment="Center" Foreground="Yellow" FontSize="30" Text="Choose File Name" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" Margin="-48,-26,-8,26"/>
             <TextBox x:Name="txtsaveFile" TextAlignment="Center" GotFocus="txtsaveFile_GotFocus" VerticalContentAlignment="Center" Background="Yellow" Width="200" Height="50" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" FontSize="35" Foreground="Black" Margin="1,19,49,67"/>
             <Button x:Name="btnSave" Height="70" Click="btnSave_Click" Margin="23,66,0,0">
                 <Image Source="Assets/Images/Save Button.jpg" Margin="0,18,0,-18"/>

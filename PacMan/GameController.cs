@@ -38,6 +38,8 @@ namespace PacManNamespace
         public Tile Inky { get; set; }
         public Tile Clyde { get; set; }
 
+        public bool isLoading = false;
+
         public Task<int> MakeGhostsNormalTask;
         public GameController()
         {
@@ -192,7 +194,10 @@ namespace PacManNamespace
 
             Maps.Add(new Map());
             Map map = Maps[0];
-            map.LoadMap("");
+            if (isLoading)
+                map.LoadMap(" ");
+            else
+                map.LoadMap("");
 
             Pacman = map.Characters[ObjectType.Pacman];
             Blinky = map.Characters[ObjectType.Blinky];
@@ -201,9 +206,21 @@ namespace PacManNamespace
             Clyde = map.Characters[ObjectType.Clyde];
         }
 
-        public void Load(string path)
+        public string Serialize()
         {
-
+            string controllerInfo = "";
+            controllerInfo += ((Pacman)Pacman).Score.ToString() + ",";
+            return controllerInfo;
         }
+
+        public void Deserialize(string data, Map m)
+        {
+            m = Maps[0];
+
+            m.DeSerialize(data);
+            string[] dataSplit = data.Split(',');
+            ((Pacman)Pacman).Score = Convert.ToInt32(dataSplit[dataSplit.Length - 1]);
+        }
+
     }
 }

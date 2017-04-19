@@ -96,8 +96,8 @@ namespace PacManNamespace.Models
         public virtual string Serialize()
         {
             string str = "";
-            str += Position.row + " ";
-            str += Position.col + ",";
+            str += Math.Round(Position.row) + " ";
+            str += Math.Round(Position.col) + ",";
             return str;
         }
 

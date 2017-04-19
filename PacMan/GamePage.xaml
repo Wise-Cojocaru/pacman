@@ -28,6 +28,13 @@
                 <TextBlock x:Name="ScoreText"  Text="Score" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <TextBlock x:Name="Score"   Text="0" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 
+                
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Left" Margin="-209,53,0,-53">
+                <TextBlock x:Name="saveControlsText"   Text="Press K to load or save" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Margin="0,53,-199,-53">
+                <TextBlock x:Name="toggleCheat"   Text="Press C to toggle cheat mode" Visibility="Visible" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Margin="100,0,0,0">
                 <TextBlock x:Name="LivesText" Text="Lives" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" />

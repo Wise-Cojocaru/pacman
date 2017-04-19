@@ -165,7 +165,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Bullet.cs" />
     <Compile Include="CustomizePage.xaml.cs">
       <DependentUpon>CustomizePage.xaml</DependentUpon>
     </Compile>
