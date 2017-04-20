@@ -89,6 +89,9 @@ namespace PacManNamespace
                    
                     if (Maps[0].Dots.Count == 0)
                     {
+                        CurrentLevel++;
+                        //next map
+                        Init();
                         GameState = GameState.Won;
                     }
                     else
@@ -140,11 +143,12 @@ namespace PacManNamespace
                     }
                 }
             }
-
+            
             foreach (Bullet b in Maps[0].Bullets)
             {
                 if (Maps[0].CollisionWithPacman(b))
                 {
+                    
                     if (!isCheating)
                     {
                         PacDead = true;

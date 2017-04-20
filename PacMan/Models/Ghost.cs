@@ -145,7 +145,9 @@ namespace PacManNamespace.Models.Ghosts
                     }
                     if(map.CollisionWithPacman(b))
                         map.CollidedWithPac = true;
-                    b.isMoving = false;
+                    
+                    map.Bullets.Remove(b);
+                    map.LastRemoved = b;
                     this.BulletShot = false;
 
                 });

@@ -20,6 +20,7 @@ namespace PacManNamespace.Models
         public int CurrentLevel { get; set;}
 
         public bool CollidedWithPac = false;
+        public Tile LastRemoved { get; set; }
 
         public List<Tile> Dots = new List<Tile>();
 

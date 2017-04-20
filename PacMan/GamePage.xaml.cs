@@ -101,15 +101,12 @@ namespace PacManNamespace
                 }
                 
             }
-            
 
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 5);
-            
+
         }
-
-
 
         private async void dispatcherTimer_Tick(object sender, object e)
         {
@@ -117,8 +114,6 @@ namespace PacManNamespace
             controller.MoveGhosts();
             UpdateIcon();
             controller.MovePacman();
-            
-            
 
             if (controller.LastCollidedWith != null)
             {
@@ -162,19 +157,29 @@ namespace PacManNamespace
                 PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, UICharacters[Type]);
             }
 
-            
+            if(controller.Maps[0].LastRemoved!=null)
+            {
+                if (Bullets.Keys.Contains(controller.Maps[0].LastRemoved))
+                {
+                    Canvas.Children.Remove(Bullets[controller.Maps[0].LastRemoved]);
+                    Bullets[controller.Maps[0].LastRemoved] = null;
+                }
+                controller.Maps[0].LastRemoved = null;
+            }
+                
+
             foreach (Tile b in controller.Maps[controller.CurrentLevel].Bullets)
             {
                 if (!Bullets.ContainsKey(b))
                 {
                         
-                        Image Bullet = new Image();
-                        Bullet.Name = Bullet.ToString();
-                        Bullet.Height = 20;
-                        Bullet.Width = 20;
-                        Bullet.Source = new BitmapImage(new Uri(pathToPng + "bullet-R.png"));
-                        Bullets[b] = Bullet;
-                        this.Canvas.Children.Add(Bullets[b]);
+                    Image Bullet = new Image();
+                    Bullet.Name = Bullet.ToString();
+                    Bullet.Height = 20;
+                    Bullet.Width = 20;
+                    Bullet.Source = new BitmapImage(new Uri(pathToPng + "bullet-R.png"));
+                    Bullets[b] = Bullet;
+                    this.Canvas.Children.Add(Bullets[b]);
                }
 
                 if(!b.isMoving)
