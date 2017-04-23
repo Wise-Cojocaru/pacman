@@ -47,7 +47,6 @@ namespace PacManNamespace.Models
             
         }
 
-       
 
         public virtual void Move()
         {

@@ -48,7 +48,30 @@ namespace PacManNamespace
 
         public void MovePacman()
         {
-            
+
+            if (Maps[0].CollidedWithPac)
+            {
+                Maps[0].CollidedWithPac = false;
+                if (!isCheating)
+                {
+                    PacDead = true;
+                    ((Pacman)Pacman).Lives -= 1;
+                    if (((Pacman)Pacman).Lives == 0)
+                    {
+                        PacDead = true;
+                        GameState = GameState.Lost;
+                    }
+                    else
+                    {
+                        GameState = GameState.Pause;
+                        Pacman.Position.col = Pacman.StartPosition.col;
+                        Pacman.Position.row = Pacman.StartPosition.row;
+                        Pacman.Direction = Direction.Left;
+                    }
+                }
+
+            }
+
 
             Tile tempTile = Maps[0].Collision(Pacman.Direction, Pacman);
             LastCollidedWith = tempTile;
@@ -83,16 +106,13 @@ namespace PacManNamespace
                     ((Pacman)Pacman).Score += tempTile.Value;
                     Maps[0].RemoveFromMap(tempTile);
                     Maps[0].MakeGhostVulnerable();
-
-                    
                     MakeGhostsNormalTask = Task.Run(() => MakeGhostNormal());
                    
                     if (Maps[0].Dots.Count == 0)
                     {
-                        CurrentLevel++;
-                        //next map
-                        Init();
+                        
                         GameState = GameState.Won;
+                        ((Pacman)Pacman).Score += 100;
                     }
                     else
                     {
@@ -112,8 +132,7 @@ namespace PacManNamespace
             Tile GhostTile = Maps[0].CollisionWithGhost();
             if (GhostTile != null)
             {
-                AteGhost = true;
-
+                
                 if (GhostTile.Vulnerable)
                 {
                     AteGhost = true;
@@ -143,33 +162,8 @@ namespace PacManNamespace
                     }
                 }
             }
+
             
-            foreach (Bullet b in Maps[0].Bullets)
-            {
-                if (Maps[0].CollisionWithPacman(b))
-                {
-                    
-                    if (!isCheating)
-                    {
-                        PacDead = true;
-                        ((Pacman)Pacman).Lives -= 1;
-                        if (((Pacman)Pacman).Lives == 0)
-                        {
-                            PacDead = true;
-                            GameState = GameState.Lost;
-                        }
-                        else
-                        {
-                            GameState = GameState.Pause;
-                            Pacman.Position.col = Pacman.StartPosition.col;
-                            Pacman.Position.row = Pacman.StartPosition.row;
-                            Pacman.Direction = Direction.Left;
-                        }
-                    }
-
-                }
-
-            }
 
         }
 
@@ -199,7 +193,7 @@ namespace PacManNamespace
             Maps.Add(new Map());
             Map map = Maps[0];
             if (isLoading)
-                map.LoadMap(" ");
+                map.LoadMap("");
             else
                 map.LoadMap("");
 

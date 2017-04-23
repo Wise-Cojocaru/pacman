@@ -81,7 +81,7 @@ namespace PacManNamespace
                    Windows.Storage.StorageFile file = await folder.GetFileAsync("intermission.wav");
                    var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
                    mysong.SetSource(stream, file.ContentType);
-
+                   mysong.Volume = 0.1;
                    mysong.Play();
 
 

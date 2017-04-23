@@ -75,7 +75,7 @@ namespace PacManNamespace
                 UIDots[dot] = Dot;
                 this.Canvas.Children.Add(UIDots[dot]);
                 PlaceOnCanvas(dot.Position, UIDots[dot]);
-                controller.Maps[0].Maze[(int)dot.Position.row, (int)dot.Position.col].Type = TileType.Dot;
+                controller.Maps[0].Maze[(int)dot.Position.row, (int)dot.Position.col].Type = dot.Type;
 
             }
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -111,23 +111,27 @@ namespace PacManNamespace
         private async void dispatcherTimer_Tick(object sender, object e)
         {
 
-            controller.MoveGhosts();
-            UpdateIcon();
             controller.MovePacman();
+            UpdateIcon();
+            controller.MoveGhosts();
 
             if (controller.LastCollidedWith != null)
             {
                 if (controller.LastCollidedWith.Type == TileType.Dot || controller.LastCollidedWith.Type == TileType.MakeVulnerable)
                 {
+                    
                     Task.Run(() => PlaySound(SoundType.chomp));
                     try
                     {
                         Canvas.Children.Remove(UIDots[controller.LastCollidedWith]);
-                    } catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
 
                     }
-                    UIDots[controller.LastCollidedWith] = null;
+                   
+                   UIDots[controller.LastCollidedWith] = null;
+                   controller.LastCollidedWith = null;
                 }
 
             }
@@ -157,39 +161,36 @@ namespace PacManNamespace
                 PlaceOnCanvas(controller.Maps[0].Characters[Type].Position, UICharacters[Type]);
             }
 
-            if(controller.Maps[0].LastRemoved!=null)
-            {
-                if (Bullets.Keys.Contains(controller.Maps[0].LastRemoved))
-                {
-                    Canvas.Children.Remove(Bullets[controller.Maps[0].LastRemoved]);
-                    Bullets[controller.Maps[0].LastRemoved] = null;
-                }
-                controller.Maps[0].LastRemoved = null;
-            }
-                
-
             foreach (Tile b in controller.Maps[controller.CurrentLevel].Bullets)
             {
+                
+
                 if (!Bullets.ContainsKey(b))
                 {
-                        
                     Image Bullet = new Image();
-                    Bullet.Name = Bullet.ToString();
                     Bullet.Height = 20;
                     Bullet.Width = 20;
                     Bullet.Source = new BitmapImage(new Uri(pathToPng + "bullet-R.png"));
                     Bullets[b] = Bullet;
                     this.Canvas.Children.Add(Bullets[b]);
-               }
-
-                if(!b.isMoving)
+                }
+                if (!b.isMoving)
                 {
                     Canvas.Children.Remove(Bullets[b]);
-
+                    Bullets.Remove(b);
                 }
+                else
+                {
+
                 PlaceOnCanvas(b.Position, Bullets[b]);
+                }
+
             }
 
+            controller.Maps[0].Bullets.RemoveAll((b) => 
+            {
+                return !b.isMoving;
+            });
    
 
             if (controller.GameState == GameState.Lost)
@@ -224,6 +225,7 @@ namespace PacManNamespace
                             Windows.Storage.StorageFile file = await folder.GetFileAsync(type.ToString() + ".wav");
                             var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
                             mysong.SetSource(stream, file.ContentType);
+                            mysong.Volume = 0.1;
                             mysong.Play();
                             
                         });

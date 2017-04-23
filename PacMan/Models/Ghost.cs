@@ -56,9 +56,9 @@ namespace PacManNamespace.Models.Ghosts
         }
         public void MakeVulnerable()
         {
-            Vulnerable = true;
             CurrentImageUrl = "vulnghost.png";
-            
+            Vulnerable = true;
+
         }
 
         public void MakeNormal()
@@ -121,9 +121,6 @@ namespace PacManNamespace.Models.Ghosts
                 this.Direction = temp;
             }
             
-
-
-
             if ((Math.Abs(colDiff) <= 0.1 || Math.Abs(rowDiff) <= 0.1) && !BulletShot)
             {
                 Bullet b = new Bullet();
@@ -139,15 +136,16 @@ namespace PacManNamespace.Models.Ghosts
                     Tile tile = map.Collision(b.Direction, b);
                     while (tile.Type != TileType.Wall && !map.CollisionWithPacman(b))
                     {
+                        
                         b.Move();
                         Task.Delay(TimeSpan.FromMilliseconds(5)).Wait();
                         tile = map.Collision(b.Direction, b);
+
                     }
-                    if(map.CollisionWithPacman(b))
+                    if(tile.Type != TileType.Wall)
                         map.CollidedWithPac = true;
-                    
-                    map.Bullets.Remove(b);
-                    map.LastRemoved = b;
+
+                    b.isMoving = false;
                     this.BulletShot = false;
 
                 });

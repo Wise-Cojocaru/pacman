@@ -63,16 +63,14 @@ namespace PacManNamespace.Models
 
         public bool CollisionWithPacman(Bullet b)
         {
-            int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
-            int pacCol = (int)(Characters[ObjectType.Pacman].Position.col);
-            
-                
-            if ((int)(b.Position.col) == pacCol && (int)(b.Position.row) == pacRow)
+            int pacRow = (int)Math.Round(Characters[ObjectType.Pacman].Position.row);
+            int pacCol = (int)Math.Round(Characters[ObjectType.Pacman].Position.col);
+
+            if ((int)Math.Round(b.Position.col) == pacCol && (int)Math.Round(b.Position.row) == pacRow)
             {
                 CollidedWithPac = true;
                 return true;
             }
-            CollidedWithPac = false;
             return false;
         }
         public Tile Collision(Direction direction, Tile tile)
@@ -130,8 +128,7 @@ namespace PacManNamespace.Models
             // var dialog = new Windows.UI.Popups.MessageDialog(col.ToString());
             //await dialog.ShowAsync();
 
-            if (path == "")
-            {
+            
                 foreach (var row in input.Split('\n'))
                 {
                     j = 0;
@@ -214,89 +211,6 @@ namespace PacManNamespace.Models
                     }
                     i++;
                 }
-   
-            }
-            else if (path == " ")
-            {
-                foreach (var row in input.Split('\n'))
-                {
-                    j = 0;
-                    char[] str = row.Trim().ToCharArray();
-                    foreach (var col in str)
-                    {
-
-                        if (col == 'W')
-                        {
-                            tempTile = new Tile();
-                            tempTile.Type = TileType.Wall;
-                        }
-                        if (col == 'E')
-                        {
-                            tempTile = new Tile();
-                            tempTile.Type = TileType.Empty;
-
-                        }
-                        if (col == 'D')
-                        {
-                            tempTile = new Tile();
-                            tempTile.Type = TileType.Empty;
-
-
-                        }
-
-                        if (col == 'V')
-                        {
-                            tempTile = new Tile();
-                            tempTile.Type = TileType.Empty;
-
-                        }
-                        if (col == 'B')
-                        {
-                            tempTile = new Ghost(this, TileType.Blinky);
-                            Characters[ObjectType.Blinky] = tempTile;
-                            tempTile.Value = 5;
-                        }
-                        if (col == 'I')
-                        {
-                            tempTile = new Ghost(this, TileType.Inky);
-                            Characters[ObjectType.Inky] = tempTile;
-                            tempTile.Value = 5;
-                        }
-                        if (col == 'P')
-                        {
-                            tempTile = new Ghost(this, TileType.Pinky);
-                            Characters[ObjectType.Pinky] = tempTile;
-                            tempTile.Value = 5;
-                        }
-                        if (col == 'C')
-                        {
-                            tempTile = new Ghost(this, TileType.Clyde);
-                            Characters[ObjectType.Clyde] = tempTile;
-                            tempTile.Value = 5;
-                        }
-                        if (col == 'M')
-                        {
-                            tempTile = new Pacman();
-                            Characters[ObjectType.Pacman] = tempTile;
-
-                        }
-
-                        if (tempTile != null)
-                        {
-                            tempTile.Position.col = j;
-                            tempTile.Position.row = i;
-
-                            tempTile.PrevPosition.col = j;
-                            tempTile.PrevPosition.row = i;
-                            this.Maze[i, j] = tempTile;
-                        }
-
-                        j++;
-                    }
-                    i++;
-                }
-            }
-
 
 
         }
