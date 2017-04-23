@@ -1,4 +1,8 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// This class implements a Pacman character model. Contains methods that allow
+// the pacman to move and animate
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +13,13 @@ namespace PacManNamespace.Models
 {
     public class Pacman : Tile
     {
+        //property that holds the score pacman has accumulated
         public int Score { get; set; }
+        //property that holds number of lives
         public int Lives { get; set; }
+        //dispatcher timer variable
         public DispatcherTimer MoveOneTile;
+        //pacman's constructor
         public Pacman()
         {
             this.Type = TileType.Pacman;
@@ -36,10 +44,12 @@ namespace PacManNamespace.Models
             MoveOneTile.Tick += dispatcherTimer_Tick;
             MoveOneTile.Interval = new TimeSpan(0, 0, 0, 0, 5);
         }
+        //method that moves pacman constantly
         private void dispatcherTimer_Tick(object sender, object e)
         {
             Move();
         }
+        //method that animates pacman
         public override void Animate()
         {
 

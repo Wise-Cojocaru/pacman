@@ -1,4 +1,9 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// This class implements the Pacman game logic. Holds references to Maps and
+// game objects. Implements the main game loop and the core methods for the pacman
+// game to be playable.
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,40 +17,55 @@ using Windows.Storage;
 
 namespace PacManNamespace
 {
-   
+    //Serialization Interface
     public interface Serialization
     {
         string Serialize();
         void Deserialize();
     }
+    //enums
     public enum ObjectType { Pacman, Blinky, Pinky, Inky, Clyde}
     public enum SoundType { beginning, chomp, death, eatghost, extrapac,intermission }
     public enum Level { First, Second, Third}
     public enum GameState {None, Pause, Playing, Lost, Won}
     public class GameController
     {
+        //Contains a list of maps
         public List<Map> Maps = new List<Map>();
+
+        //Holds a reference to the last object pacman collided with (from the map)
         public Tile LastCollidedWith { get; set; }
-        public Tile LastBulletHit { get; set; }
+        //A flag which is set when pacman eats a ghost
         public bool AteGhost { get; set; }
+        //flag to hold pacman state
         public bool PacDead { get; set; }
+        //flat to hold the game mode (cheating or normal)
         public bool isCheating { get; set; }
+        //current gamestate property
         public GameState GameState { get; set; }
+        //current level property
         public int CurrentLevel { get; set; }
+        //direct property reference to pacman
         public Tile Pacman { get; set; }
+        //direct property reference to blinky
         public Tile Blinky { get; set; }
+        //direct property reference to Pinky
         public Tile Pinky { get; set; }
+        //direct property reference to Inky
         public Tile Inky { get; set; }
+        //direct property reference to Clyde
         public Tile Clyde { get; set; }
-
+        //flag which tells if the map is still being loaded
         public bool isLoading = false;
-
+        //variable which holds reference to a task
         public Task<int> MakeGhostsNormalTask;
+        //gamecontroller constructor
         public GameController()
         {
 
         }
-
+        // This method moves the Pacman and checks for collision with Ghosts, Bullets, Dots, Walls and updates the coresponding properties to inform
+        // the view of the latest collision.
         public void MovePacman()
         {
 
@@ -166,7 +186,7 @@ namespace PacManNamespace
             
 
         }
-
+        // This method waits 10 seconds after which it changes each ghosts' Vulnerable flag to false
         private Task<int> MakeGhostNormal()
         {
             Task.Delay(TimeSpan.FromSeconds(10)).Wait();
@@ -177,7 +197,7 @@ namespace PacManNamespace
             }
             return Task.FromResult(0);
         }
-
+        // This method moves each ghost
         public void MoveGhosts()
         {
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -186,7 +206,7 @@ namespace PacManNamespace
                     ((Ghost)Maps[0].Characters[Type]).Move();
             }
         }
-
+        // This method initiates the model
         public void Init()
         {
 
@@ -203,14 +223,14 @@ namespace PacManNamespace
             Inky = map.Characters[ObjectType.Inky];
             Clyde = map.Characters[ObjectType.Clyde];
         }
-
+        // This method serializes the gamestate.
         public string Serialize()
         {
             string controllerInfo = "";
             controllerInfo += ((Pacman)Pacman).Score.ToString() + ",";
             return controllerInfo;
         }
-
+        // This method deserializes the gamestate
         public void Deserialize(string data, Map m)
         {
             m = Maps[0];

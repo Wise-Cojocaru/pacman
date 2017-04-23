@@ -1,4 +1,8 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// This class implements a Pacman Map model. Contains references to all the
+// characters and objects on the map
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,25 +16,26 @@ namespace PacManNamespace.Models
     
     public class Map
     {
+        //map's array reprezentation
         public Tile[,] Maze { get; set; }
-
+        // dictionary that holds the game's characters
         public Dictionary<ObjectType, Tile> Characters = new Dictionary<ObjectType, Tile>();
-
+        // list which contains all the bullets
         public List<Tile> Bullets = new List<Tile>();
+        // property that contains the current level
         public int CurrentLevel { get; set;}
-
+        // flag that tells if a bulle collided with the Pacman
         public bool CollidedWithPac = false;
-        public Tile LastRemoved { get; set; }
-
+        // a list that contains all the dots on the map
         public List<Tile> Dots = new List<Tile>();
-
+        // a list of all the dots that make pacman vulnerable
         public List<Tile> MakeVulns = new List<Tile>();
-
+        //map's constructor
         public Map()
         {
             Maze = new Tile[31, 28];
         }
-
+        //method that makes the ghosts vulnerable
         public void MakeGhostVulnerable()
         {
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
@@ -42,6 +47,7 @@ namespace PacManNamespace.Models
                 }
             }
         }
+        //method that checks the collision with ghosts
         public Tile CollisionWithGhost()
         {
             int pacRow = (int)(Characters[ObjectType.Pacman].Position.row);
@@ -59,8 +65,7 @@ namespace PacManNamespace.Models
             return null;
 
         }
-
-
+        //method that checks if the bullet collides with pacman
         public bool CollisionWithPacman(Bullet b)
         {
             int pacRow = (int)Math.Round(Characters[ObjectType.Pacman].Position.row);
@@ -73,6 +78,7 @@ namespace PacManNamespace.Models
             }
             return false;
         }
+        //method that checks if pacman collides with any object from the map (wall, dots)
         public Tile Collision(Direction direction, Tile tile)
         {
             int x = (int)(tile.Position.col);
@@ -99,6 +105,7 @@ namespace PacManNamespace.Models
             }
             return null;
         }
+        //method that removes a tile from the maze
         public void RemoveFromMap(Tile t)
         {
             this.Dots.Remove(t);
@@ -106,6 +113,7 @@ namespace PacManNamespace.Models
             temp.Type = TileType.Empty;
             Maze[(int)t.Position.row, (int)t.Position.col] = temp;
         }
+        //method that moves a tile from the maze
         public void MoveTile(Tile t)
         {
             int i = (int)Math.Round(t.Position.row);
@@ -119,6 +127,7 @@ namespace PacManNamespace.Models
             Maze[i, j] = t;
             
         }
+        //method that loads a map from file
         public void LoadMap(string path)
         {
             string input = File.ReadAllText("~/../Assets/maze.txt");
@@ -214,6 +223,7 @@ namespace PacManNamespace.Models
 
 
         }
+        //method that serializes the current map to a file
         public string Serialize()
         {
             string str = "";
@@ -232,7 +242,7 @@ namespace PacManNamespace.Models
 
             return str;
         }
-
+        //method that deserializes a map from file
         public void DeSerialize(string data)
         {
             string[] dataSplit = data.Split(',');

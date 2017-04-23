@@ -1,4 +1,8 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// Thiss class implements a Bullet model
+//------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +12,7 @@ namespace PacManNamespace.Models
 {
     public class Bullet : Tile
     {
+        //bullet's constructor
         public Bullet()
         {
             this.isMoving = false;

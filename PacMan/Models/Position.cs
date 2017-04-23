@@ -1,4 +1,7 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// This class defines the position of an object on the map
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +11,10 @@ namespace PacManNamespace.Models
 {
     public class Position
     {
+        //property that holds the current col
         public double col { get; set; }
+        //property that holds the current row
         public double row { get; set; }
-
-        public int colInt { get; set; }
-        public int rowInt { get; set; }
+        
     }
 }

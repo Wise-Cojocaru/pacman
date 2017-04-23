@@ -1,4 +1,7 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// Thiss class implements a Dot model
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,7 @@ namespace PacManNamespace.Models
 {
     public class Dot : Tile
     {
+        //dot's constructor
         public Dot(int i, int j)
         {
             this.Type = TileType.Dot;

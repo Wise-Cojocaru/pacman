@@ -1,4 +1,7 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// Thiss class implements a Ghost model
+//------------------------------------------------------------------------------
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +11,15 @@ namespace PacManNamespace.Models.Ghosts
 {
     public class Ghost : Tile
     {
+        //randomization class instance
         Random r = new Random();
-        
-
+        //a list of direction the ghost can go
         public List<Direction> DirectionsToChoose = new List<Direction>();
-        public bool BulletShotAndHitPacman { get; set; }
+        //property which tells if the ghost has shot a bullet already
         public bool BulletShot { get; set; }
+        // reference to current map
         public Map map { get; set; }
+        //ghost's constructor
         public Ghost(Map map, TileType type)
         {
             this.Vulnerable = false;
@@ -54,24 +59,27 @@ namespace PacManNamespace.Models.Ghosts
 
             this.Type = type;
         }
+        //a method that makes the ghost vulnerable
         public void MakeVulnerable()
         {
             CurrentImageUrl = "vulnghost.png";
             Vulnerable = true;
 
         }
-
+        // a method that makes the ghost normal again
         public void MakeNormal()
         {
            CurrentImageUrl = Type.ToString() + ".png";
            Vulnerable = false;   
         }
+        //a method that moves the ghost in a certain direction
         public override void Move()
         {
             ChooseDirection();
             base.Move();
 
         }
+        // a method that chooses the direction
         public void ChooseDirection()
         {
             int currRow = (int)Math.Round(this.Position.row);
