@@ -1,4 +1,9 @@
-﻿using PacMan;
+﻿//------------------------------------------------------------------------------
+// This page is the title screen where the user can access the about, help,
+// customize, and game pages.
+//------------------------------------------------------------------------------
+
+using PacMan;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,6 +32,8 @@ namespace PacManNamespace
     public sealed partial class MainPage : Page
     {
 
+        //Sets the color of the Pacman to the default value in case the user does
+        //not set a custom one.
         private string colorString = String.Format("{0},{1},{2},{3}", 255, 255, 241, 0);
 
         public MainPage()
@@ -34,26 +41,36 @@ namespace PacManNamespace
             this.InitializeComponent();
         }
 
+        //Navigates to the "About" page and sends Pacman color info
+        //if the user clicks the "About" button.
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AboutPage), colorString);
         }
 
+        //Navigates to the "Help" page and sends Pacman color info
+        //if the user clicks the "Help" button.
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(HelpPage), colorString);
         }
 
+        //Navigates to the game page and sends Pacman color info
+        //if the user clicks the "Start" button.
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(GamePage), colorString);
         }
 
+        //Navigates to the "Customize" page and sends Pacman color info
+        //if the user clicks the "Customize" button.
         private void btnCustomize_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CustomizePage), colorString);
         }
 
+        //Sets string for Pacman color to string received from whatever
+        //page is being navigated from.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -65,6 +82,7 @@ namespace PacManNamespace
 
         }
 
+        //Plays title screen song when the page is loaded.
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Task T2 = Task.Run(async () =>

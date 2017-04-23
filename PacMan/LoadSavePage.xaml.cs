@@ -1,4 +1,9 @@
-﻿using PacManNamespace;
+﻿//------------------------------------------------------------------------------
+// This page allows the user to save current game or load any game they have
+// saved in the past.
+//------------------------------------------------------------------------------
+
+using PacManNamespace;
 using PacManNamespace.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +32,7 @@ namespace PacMan
     public sealed partial class LoadSavePage : Page
     {
 
+        //String later set for when OnNavigatedTo() is called.
         string mapSerializedStr = "";
 
         public LoadSavePage()
@@ -35,6 +41,8 @@ namespace PacMan
             this.InitializeComponent();
         }
 
+        //Opens the file with the name the user selected and sets its contents to the string fileContents.
+        //Navigates to GamePage with the Paramter fileContents to be loaded by GamePage.
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             if(loadFileView.SelectedItem != null)
@@ -53,6 +61,7 @@ namespace PacMan
             
         }
 
+        //Saves the game to specified file name if the file name given by the user is not empty
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if(txtsaveFile.Text == "")
@@ -61,12 +70,17 @@ namespace PacMan
                 Save();
         }
 
+        //Attempt at getting background of save textbox to be yellow after the user
+        //clicked on it.
         private void txtsaveFile_GotFocus(object sender, RoutedEventArgs e)
         {
             txtsaveFile.Background = new SolidColorBrush(Colors.Yellow);
             txtsaveFile.BorderBrush = new SolidColorBrush(Colors.Yellow);
         }
 
+
+        //Receives the string of character data from GamePage, updates the list of saved games,
+        //and removes the previous page from the stack.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -75,6 +89,7 @@ namespace PacMan
             this.Frame.BackStack.RemoveAt(this.Frame.BackStack.Count - 1);
         }
 
+        //Updates the ListView containing the filenames of saved games.
         private async void UpdateListView()
         {
             loadFileView.Items.Clear();
@@ -85,6 +100,7 @@ namespace PacMan
             }
         }
 
+        //Writes string received from GamePage to a csv file whose name is given by the user.
         private async void Save()
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
@@ -102,9 +118,5 @@ namespace PacMan
 
         }
 
-        private void Load()
-        {
-            
-        }
     }
 }

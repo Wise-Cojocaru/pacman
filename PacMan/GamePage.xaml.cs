@@ -1,4 +1,8 @@
-﻿using System;
+﻿//------------------------------------------------------------------------------
+// This page is where the user plays the actual game.
+//------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,6 +58,7 @@ namespace PacManNamespace
         public bool PlayingSound { get; set; }
         public const string pathToPng = "ms-appx:///Assets/Images/png/";
 
+        //Initializes page and sets method name for when user presses a key.
         public GamePage()
         {
            
@@ -61,7 +66,9 @@ namespace PacManNamespace
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
 
         }
-        
+
+        //Sets each item on the map after initial page initialization. Also sets
+        //images to each object type and places them at a certain position on the canvas.
         public void Init()
         {
             foreach (Tile dot in controller.Maps[0].Dots)
@@ -108,6 +115,8 @@ namespace PacManNamespace
 
         }
 
+        //Moves Pacman and ghosts while checking for collisions and gamestate changes for
+        //every dispatchertimer tick (in this case, every 5 milliseconds).
         private async void dispatcherTimer_Tick(object sender, object e)
         {
 
@@ -212,6 +221,7 @@ namespace PacManNamespace
         }
 
 
+        //Plays a sound with sound source being controller by what Soundtype parameter is being passed.
         public async void PlaySound(SoundType type)
         {
           Task.Run(async () =>
@@ -234,14 +244,17 @@ namespace PacManNamespace
 
          }
 
-    
 
+
+        //Places on object on the page canvas based on object's Position "P" and the object's
+        //UI element "element".
         public void PlaceOnCanvas(Position P, UIElement element)
         {
             Canvas.SetLeft(element, P.col * 20);
             Canvas.SetTop(element, P.row * 20);
         }
 
+        //Controls Pacman direction and gamestate based on user input.
         private async void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 
@@ -322,6 +335,8 @@ namespace PacManNamespace
             }
         }
 
+        //Updates the colored Pacman icon to be in sync with Pacman image's image source. Ensure
+        //colored Pacman has same animation pattern as default Pacman.
         private void UpdateIcon()
         {
 
@@ -330,6 +345,8 @@ namespace PacManNamespace
         }
 
 
+        //Takes Parameter and either loads the page or sets Pacman color based on how many arguments
+        //are based when string Paramater is split on commas.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

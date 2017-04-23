@@ -1,4 +1,9 @@
-﻿using PacManNamespace;
+﻿//------------------------------------------------------------------------------
+// This page contains three RPG sliders with which the user can change the color
+// of their pacman.
+//------------------------------------------------------------------------------
+
+using PacManNamespace;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,7 +35,9 @@ namespace PacMan
     public sealed partial class CustomizePage : Page
     {
 
+        //Color with the RGB values of the sliders
         private Color color;
+        //Set equal to parameter when page is navigated to
         private string colorString;
 
         public CustomizePage()
@@ -40,6 +47,7 @@ namespace PacMan
             SetStartValues();
         }
 
+        //Sets the "Preview" Pacman's color based on RGB slider values.
         private void SetPacmanColor()
         {
             color = Color.FromArgb(255, Convert.ToByte(redSlider.Value), Convert.ToByte(greenSlider.Value), Convert.ToByte(blueSlider.Value));
@@ -47,6 +55,8 @@ namespace PacMan
 
         }
 
+        //Changes Textblock values for whatever color is changed and updates preview
+        //Pacman color whenever a slider value is changed.
         private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             Slider s = sender as Slider;
@@ -66,6 +76,7 @@ namespace PacMan
             SetPacmanColor();
         }
 
+        //Sets the start values for the preview Pacman to the color of the default Pacman.
         private void SetStartValues()
         {
             redSlider.Value = 255;
@@ -73,12 +84,15 @@ namespace PacMan
             blueSlider.Value = 0;
         }
 
+        //Sends user back to title screen when ESC is pressed.
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
 
             if (args.VirtualKey == Windows.System.VirtualKey.Escape) this.Frame.Navigate(typeof(MainPage), String.Format("{0},{1},{2},{3}", 255, (int)redSlider.Value, (int)greenSlider.Value, (int)blueSlider.Value));
         }
 
+        //Receives color values sent by other pages when navigated to and sets slider
+        //values and "Preview" Pacman color based on the string values.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

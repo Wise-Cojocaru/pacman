@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// Thiss class implements a Ghost model
+// This class implements a Ghost model
 //------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
