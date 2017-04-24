@@ -11,6 +11,6 @@
 
   | Developer|Time Spent|Time remaining| Link to Journal |
   |--------|------------------------------|--------|--------|
-  | Cojocaru| 29.5 |20.5 hours|[Link](https://github.com/Wise-Cojocaru/pacman/wiki/Gabriel's-Journal)
+  | Cojocaru| 38.5 |11.5 hours|[Link](https://github.com/Wise-Cojocaru/pacman/wiki/Gabriel's-Journal)
   | Wise| 38 |12 hours|[Link](https://github.com/Wise-Cojocaru/pacman/wiki/WiseJournal)
 
