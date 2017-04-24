@@ -35,27 +35,43 @@ namespace PacManNamespace
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        //Instance of GameController that controls all game aspects
         GameController controller = new GameController();
-
+        
+        //BitMapIcon used for custom Pacman color
         BitmapIcon bmi = new BitmapIcon();
 
+        //DispatcherTimer used for main game loop
         DispatcherTimer dispatcherTimer;
 
+        //Dictionary containing object type and image for Pacman and each ghost
         public Dictionary<ObjectType, Image> UICharacters = new Dictionary<ObjectType, Image>();
 
+        //Dictionary containing each dot and image for each dot
         public Dictionary<Tile, UIElement> UIDots = new Dictionary<Tile, UIElement>();
 
+        //Dictionary containing each bullet and image for each bullet
         public Dictionary<Tile, UIElement> Bullets = new Dictionary<Tile, UIElement>();
 
+        //30 second delay used for dispatcherTimer
         public TimeSpan delay = TimeSpan.FromMinutes(0.5);
 
+        //Default color of Pacman
         private Color color = Color.FromArgb(255, 255, 241, 0);
 
+        //Image used for each dot in UIDots
         private Image Dot;
 
+        //Image used for each MakeVuln in UIDots
+        private Image MV;
+
+        //Received color info in type string
         string colorString;
 
+        //Flag that tells if a sound is being played
         public bool PlayingSound { get; set; }
+
+        //Path to project Assets/Images/png/ folder
         public const string pathToPng = "ms-appx:///Assets/Images/png/";
 
         //Initializes page and sets method name for when user presses a key.
@@ -83,8 +99,22 @@ namespace PacManNamespace
                 this.Canvas.Children.Add(UIDots[dot]);
                 PlaceOnCanvas(dot.Position, UIDots[dot]);
                 controller.Maps[0].Maze[(int)dot.Position.row, (int)dot.Position.col].Type = dot.Type;
-
             }
+
+            foreach (Tile makevuln in controller.Maps[0].MakeVulns)
+            {
+
+                MV = new Image();
+                MV.Name = makevuln.ToString();
+                MV.Height = 20;
+                MV.Width = 20;
+                MV.Source = new BitmapImage(new Uri(pathToPng + makevuln.CurrentImageUrl));
+                UIDots[makevuln] = MV;
+                this.Canvas.Children.Add(UIDots[makevuln]);
+                PlaceOnCanvas(makevuln.Position, UIDots[makevuln]);
+                controller.Maps[0].Maze[(int)makevuln.Position.row, (int)makevuln.Position.col].Type = makevuln.Type;
+            }
+
             foreach (ObjectType Type in Enum.GetValues(typeof(ObjectType)))
             {
                 Image Object = new Image();

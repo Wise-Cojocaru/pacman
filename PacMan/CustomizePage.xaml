@@ -9,6 +9,7 @@
 
     <Grid Background="Black">
         
+        
         <Image Source="Assets/Images/Customize Screen.jpg"/>
         <Image x:Name="imgPacman" Source="Assets/Images/png/pacman-R.png" Margin="758,456,204,212" Height="100"/>
         <BitmapIcon x:Name="iconPacman" UriSource="Assets/Images/png/pacman-r.png" Foreground="Yellow" Margin="758,456,204,212" Height="100"/>

@@ -213,9 +213,17 @@ namespace PacManNamespace
             Maps.Add(new Map());
             Map map = Maps[0];
             if (isLoading)
+            {
+                map.isLoading = true;
                 map.LoadMap("");
+            }
+
             else
+            {
+                map.isLoading = false;
                 map.LoadMap("");
+            }
+                
 
             Pacman = map.Characters[ObjectType.Pacman];
             Blinky = map.Characters[ObjectType.Blinky];
@@ -237,7 +245,7 @@ namespace PacManNamespace
 
             m.DeSerialize(data);
             string[] dataSplit = data.Split(',');
-            ((Pacman)Pacman).Score = Convert.ToInt32(dataSplit[dataSplit.Length - 1]);
+            ((Pacman)Pacman).Score = Convert.ToInt32(dataSplit[dataSplit.Length - 5]);
         }
 
     }

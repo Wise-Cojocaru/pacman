@@ -243,6 +243,9 @@
     <Content Include="Assets\Images\png\vulnghost.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\loadmaze.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\maze.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -30,6 +30,8 @@ namespace PacManNamespace.Models
         public List<Tile> Dots = new List<Tile>();
         // a list of all the dots that make pacman vulnerable
         public List<Tile> MakeVulns = new List<Tile>();
+        //tells if map is being loaded or not
+        public bool isLoading = false;
         //map's constructor
         public Map()
         {
@@ -108,7 +110,10 @@ namespace PacManNamespace.Models
         //method that removes a tile from the maze
         public void RemoveFromMap(Tile t)
         {
-            this.Dots.Remove(t);
+            if (t.Type == TileType.Dot)
+                this.Dots.Remove(t);
+            else
+                this.MakeVulns.Remove(t);
             Tile temp = new Tile();
             temp.Type = TileType.Empty;
             Maze[(int)t.Position.row, (int)t.Position.col] = temp;
@@ -130,7 +135,11 @@ namespace PacManNamespace.Models
         //method that loads a map from file
         public void LoadMap(string path)
         {
-            string input = File.ReadAllText("~/../Assets/maze.txt");
+            string input;
+            if(!isLoading)
+                input = File.ReadAllText("~/../Assets/maze.txt");
+            else
+                input = File.ReadAllText("~/../Assets/loadmaze.txt");
             int i = 0, j = 0;
             Tile tempTile = null;
 
@@ -172,7 +181,7 @@ namespace PacManNamespace.Models
                             tempTile.Type = TileType.MakeVulnerable;
                             tempTile.CurrentImageUrl = "makevuln.png";
                             tempTile.Value = 10;
-                            Dots.Add(tempTile);
+                            MakeVulns.Add(tempTile);
 
                         }
                         if (col == 'B')
@@ -234,6 +243,12 @@ namespace PacManNamespace.Models
                 str += ",";
             }
 
+            foreach(Tile makeVuln in MakeVulns)
+            {
+                str += string.Format("mv {0} {1}", makeVuln.Position.row, makeVuln.Position.col);
+                str += ",";
+            }
+
             foreach(var KeyValuePair in Characters)
             {
                 str += KeyValuePair.Key + " ";
@@ -257,9 +272,28 @@ namespace PacManNamespace.Models
                     tempTile.Type = TileType.Dot;
                     tempTile.CurrentImageUrl = "dot.png";
                     tempTile.Value = 1;
-                    tempTile.Position.row = Convert.ToInt32(dataInfo[1]);
-                    tempTile.Position.col = Convert.ToInt32(dataInfo[2]);
                     Dots.Add(tempTile);
+                    tempTile.Position.col = Convert.ToInt32(dataInfo[2]);
+                    tempTile.Position.row = Convert.ToInt32(dataInfo[1]);
+
+                    tempTile.PrevPosition.col = Convert.ToInt32(dataInfo[2]);
+                    tempTile.PrevPosition.row = Convert.ToInt32(dataInfo[1]);
+                    this.Maze[Convert.ToInt32(dataInfo[1]), Convert.ToInt32(dataInfo[2])] = tempTile;
+                }
+
+                else if (dataInfo[0] == "mv")
+                {
+                    var tempTile = new Tile();
+                    tempTile.Type = TileType.MakeVulnerable;
+                    tempTile.CurrentImageUrl = "makevuln.png";
+                    tempTile.Value = 10;
+                    MakeVulns.Add(tempTile);
+                    tempTile.Position.col = Convert.ToInt32(dataInfo[2]);
+                    tempTile.Position.row = Convert.ToInt32(dataInfo[1]);
+
+                    tempTile.PrevPosition.col = Convert.ToInt32(dataInfo[2]);
+                    tempTile.PrevPosition.row = Convert.ToInt32(dataInfo[1]);
+                    this.Maze[Convert.ToInt32(dataInfo[1]), Convert.ToInt32(dataInfo[2])] = tempTile;
                 }
 
                 else if (dataInfo[0] == "Pacman")
