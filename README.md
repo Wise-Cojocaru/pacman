@@ -5,6 +5,7 @@
 - Alpha Recording: http://tinyurl.com/packingmanalpha
 - Beta Recording: http://tinyurl.com/packingmanbeta
 - Release Candidate Recording: http://tinyurl.com/packingmanrc
+- Final Release: http://tinyurl.com/packingmanfr
 
 - Expenses: 
 
