@@ -20,7 +20,7 @@
                 <TextBlock x:Name="pressEnter" Text="Press Enter to begin" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="153" Canvas.Top="293" />
                 <TextBlock x:Name="GameOver" Text="Game Over" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="221" />
                 <TextBlock x:Name="Won" Text="Won" Visibility="Collapsed" Foreground="Yellow" FontSize="20" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Top="293" Canvas.Left="257" />
-                <TextBlock x:Name="CountDownText" Text="3" Visibility="Collapsed" Foreground="Yellow" FontSize="50" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" Canvas.Top="264" Canvas.Left="264"/>
+                <TextBlock x:Name="CountDownText" Text="3" Visibility="Collapsed" Foreground="Yellow" FontSize="50" FontFamily="Assets/Fonts/SUBWT___.ttf#Subway Ticker" HorizontalAlignment="Center" Canvas.Top="202" Canvas.Left="264"/>
             </Canvas>
         </StackPanel>
         <Grid HorizontalAlignment="Center">
